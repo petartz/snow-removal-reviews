@@ -1,6 +1,8 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
+@import './stylesheets/Colors.scss';
+@import './stylesheets/Index.scss';
 // place global css here
 *,
 *::before,
@@ -11,4 +13,8 @@
 :root {
   -moz-tab-size: 4;
   tab-size: 4;
+}
+
+body {
+  color: $dark-blue;
 }
