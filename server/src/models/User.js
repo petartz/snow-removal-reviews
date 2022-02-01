@@ -23,6 +23,34 @@ class User extends uniqueFunc(Model) {
     return Bcrypt.compareSync(password, this.cryptedPassword);
   }
 
+  static get relationMapping() {
+    const Service = require("./Service.js")
+    const Review = require("./Review.js")
+
+    return{
+      services: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Service,
+        join: {
+          from: "users.id",
+          through: {
+            from: "reviews.userId",
+            to: "reviews.serviceId"
+          },
+          to: "services.id"
+        }
+      },
+      reviews:{
+        relation: Model.HasManyRelation,
+        modelClass: Review,
+        join: {
+          from: "user.id",
+          to: "reviews.userId"
+        }
+      }
+    }
+  }
+
   static get jsonSchema() {
     return {
       type: "object",
