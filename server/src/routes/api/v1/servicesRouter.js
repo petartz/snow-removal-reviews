@@ -17,4 +17,14 @@ serviceRouter.get("/", async (req,res) =>{
 
 })
 
+serviceRouter.post("/", async (req, res) => {
+    try {
+        debugger
+        const newService = await Service.query().insertAndFetch(req.body)
+        return res.status(201).json({ service: newService })
+    } catch(error) {
+        return res.status(500).json({ errors: error })
+    }
+})
+
 export default serviceRouter
