@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
 const ServiceTile = ({ service }) => {
   return (
@@ -8,9 +9,9 @@ const ServiceTile = ({ service }) => {
         src={service.photoUrl}
         alt="photo of snow removal service"
       />
-      <a href={service.websiteUrl}>
+      <Link to={`/services/${service.id}`}>
         {service.name}
-      </a>
+      </Link>
     </div>
   )
 }

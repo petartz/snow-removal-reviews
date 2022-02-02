@@ -17,7 +17,8 @@ class Service extends Model {
                     from: "services.id",
                     through: {
                         from: "reviews.serviceId",
-                        to: "reviews.userId"
+                        to: "reviews.userId",
+                        extra: ['heading', 'description', 'rating']
                     },
                     to: "users.id"
                 }

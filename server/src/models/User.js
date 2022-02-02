@@ -23,7 +23,7 @@ class User extends uniqueFunc(Model) {
     return Bcrypt.compareSync(password, this.cryptedPassword);
   }
 
-  static get relationMapping() {
+  static get relationMappings() {
     const Service = require("./Service.js")
     const Review = require("./Review.js")
 
@@ -35,7 +35,8 @@ class User extends uniqueFunc(Model) {
           from: "users.id",
           through: {
             from: "reviews.userId",
-            to: "reviews.serviceId"
+            to: "reviews.serviceId",
+            extra:['heading','description','rating']
           },
           to: "services.id"
         }
