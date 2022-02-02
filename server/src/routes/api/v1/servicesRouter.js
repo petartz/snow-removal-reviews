@@ -20,7 +20,6 @@ serviceRouter.get("/", async (req, res) => {
 
 serviceRouter.post("/", async (req, res) => {  
   const formInput = cleanUserInput(req.body)
-  console.log(formInput)
   try {
     const newService = await Service.query().insertAndFetch(formInput);
     return res.status(201).json({ service: newService });
