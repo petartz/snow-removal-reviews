@@ -1,6 +1,8 @@
 import express from "express";
 import Service from "../../../models/Service.js";
 import ServiceSerializer from "../../../../serializers/ServiceSerializer.js";
+import cleanUserInput from "../../../../services/cleanUserInput.js";
+import { ValidationError } from "objection";
 
 const serviceRouter = new express.Router();
 
@@ -16,12 +18,16 @@ serviceRouter.get("/", async (req, res) => {
   }
 });
 
-serviceRouter.post("/", async (req, res) => {
+serviceRouter.post("/", async (req, res) => {  
+  const formInput = cleanUserInput(req.body)
+  console.log(formInput)
   try {
-
-    const newService = await Service.query().insertAndFetch(req.body);
+    const newService = await Service.query().insertAndFetch(formInput);
     return res.status(201).json({ service: newService });
   } catch (error) {
+    if (error instanceof ValidationError) {
+      return res.status(422).json({ errors: error.data })
+    }
     return res.status(500).json({ errors: error });
   }
 });
