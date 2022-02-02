@@ -2,7 +2,8 @@
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
 @import './stylesheets/Colors.scss';
-@import './stylesheets/Index.scss';
+@import './stylesheets/ServicesIndex.scss';
+@import './stylesheets/AddServicesForm.scss';
 // place global css here
 *,
 *::before,
