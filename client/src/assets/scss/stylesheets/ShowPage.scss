@@ -1,0 +1,23 @@
+@import './Colors.scss';
+
+
+.service{
+  padding:50px;
+  margin-left:50px;
+  margin-right:50px;
+}
+.reviews{
+  padding:50px;
+  margin-left:50px;
+  margin-right:50px;
+}
+
+.reviews-tile{
+  border: solid 8px $dark-blue;
+  padding-left:10px;
+  padding-right:10px;
+}
+.show-page-image{
+  width: 500px;
+  height: 500px;
+}

@@ -5,6 +5,36 @@ class Service extends Model {
         return "services"
     }
 
+    static get relationMappings(){
+        const Review = require("./Review.js")
+        const User = require("./User.js")
+
+        return{
+            users: {
+                relation: Model.ManyToManyRelation,
+                modelClass: User,
+                join: {
+                    from: "services.id",
+                    through: {
+                        from: "reviews.serviceId",
+                        to: "reviews.userId",
+                        extra: ['heading', 'description', 'rating']
+                    },
+                    to: "users.id"
+                }
+            },
+
+            reviews:{
+                relation: Model.HasManyRelation,
+                modelClass: Review,
+                join:{
+                    from: "services.id",
+                    to: "reviews.serviceId"
+                }
+            }
+        }
+    }
+
     static get jsonSchema(){
         return{
             type: "object",
