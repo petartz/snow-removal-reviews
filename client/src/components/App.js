@@ -7,7 +7,7 @@ import "../assets/scss/main.scss";
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
-import Index from "./layout/Index"
+import ServicesIndex from "./layout/ServicesIndex"
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -28,7 +28,7 @@ const App = (props) => {
     <Router>
       <TopBar user={currentUser} />
       <Switch>
-        <Route exact path="/" component={Index}/>
+        <Route exact path="/" component={ServicesIndex}/>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
       </Switch>
