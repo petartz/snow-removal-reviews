@@ -29,7 +29,7 @@ votesRouter.post('/', async (req, res) => {
       const totalCount = await VoteSerializer.getTotal(reviewId)
       return res.status(201).json({ totalCount })
     } else {
-      return res.status(422).json({ message: "You already voted"})
+      return res.status(422).json({ message: "You already voted" })
     }
   } catch (error) {
     return res.status(500).json({ errors: error })
@@ -47,7 +47,7 @@ votesRouter.delete('/', async (req, res) => {
       const totalCount = await VoteSerializer.getTotal(reviewId)
       return res.status(201).json({ totalCount })
     } else {
-      return res.status(422).json({ message: "You haven't voted yet"})
+      return res.status(422).json({ message: "You haven't voted yet" })
     }
   } catch (error) {
     return res.status(500).json({ errors: error })
