@@ -8,6 +8,7 @@ class Review extends Model{
     static get relationMappings(){
         const Service = require('./Service.js')
         const User = require('./User.js')
+        const Vote = require('./Vote.js')
 
         return {
             service: {
@@ -25,6 +26,26 @@ class Review extends Model{
                     from: 'reviews.userId',
                     to: 'users.id'
                 }
+            },
+            votes: {
+              relation: Model.HasManyRelation,
+              modelClass: Vote,
+              join: {
+                from: 'reviews.id',
+                to: 'votes.reviewId'
+              }
+            },
+            users: {
+              relation: Model.ManyToManyRelation,
+              modelClass: User,
+              join: {
+                from: 'reviews.id',
+                through: {
+                  from: 'votes.reviewId',
+                  to: 'votes.userId'
+                },
+                to: 'users.id'
+              }
             }
         }
     }
