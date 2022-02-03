@@ -32,9 +32,7 @@ const App = (props) => {
         <Route exact path="/">
           <ServicesIndex user={currentUser}/>
         </Route>
-        <Route exact path="/services/:id">
-          <ShowService user={currentUser}/>
-        </Route>
+        <Route exact path="/services/:id" component={ShowService}/>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
       </Switch>

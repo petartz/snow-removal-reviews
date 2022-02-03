@@ -5,6 +5,7 @@ const AddReviewsForm = (props) => {
     heading: "",
     description: "",
     rating: "",
+    userId: "",
   })
 
   const handleInputChange = event =>{
@@ -24,6 +25,7 @@ const AddReviewsForm = (props) => {
 
   const handleSubmit = async (event) =>{
     event.preventDefault()
+    newReview.userId = props.userId
     const success = await props.postReview(newReview)
     if(success){
       clearForm()
@@ -44,7 +46,7 @@ const AddReviewsForm = (props) => {
             value={newReview.heading}/>
         </label>
         <label htmlFor="description">
-          description:
+          Description:
           <input
             type="text"
             id="description"
@@ -53,7 +55,7 @@ const AddReviewsForm = (props) => {
             value={newReview.description}/>
         </label>
         <label htmlFor="rating">
-          rating:
+          Rating:
           <input
             type="integer"
             id="rating"
@@ -66,6 +68,5 @@ const AddReviewsForm = (props) => {
     </div>
   )
 }
-
 
 export default AddReviewsForm

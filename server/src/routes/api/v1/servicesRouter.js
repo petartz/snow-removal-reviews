@@ -3,6 +3,7 @@ import Service from "../../../models/Service.js";
 import ServiceSerializer from "../../../../serializers/ServiceSerializer.js";
 import cleanUserInput from "../../../../services/cleanUserInput.js";
 import { ValidationError } from "objection";
+import reviewsRouter from "./reviewsRouter.js";
 
 const serviceRouter = new express.Router();
 
@@ -17,6 +18,8 @@ serviceRouter.get("/", async (req, res) => {
     return res.status(500).json({ errors: error });
   }
 });
+
+serviceRouter.use("/:id/reviews", reviewsRouter)
 
 serviceRouter.get("/:id", async (req, res) =>{
   const id = req.params.id

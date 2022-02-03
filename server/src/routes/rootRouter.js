@@ -9,7 +9,6 @@ const rootRouter = new express.Router();
 rootRouter.use("/", clientRouter);
 rootRouter.use("/api/v1/user-sessions", userSessionsRouter);
 rootRouter.use("/api/v1/services", servicesRouter)
-rootRouter.use("/api/v1/reviews", reviewsRouter)
 rootRouter.use("/api/v1/users", usersRouter); //place your server-side routes here
 
 export default rootRouter;

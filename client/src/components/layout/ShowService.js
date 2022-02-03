@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import ReviewTile from './ReviewTile'
 import ErrorList from "./ErrorList.js"
+import AddReviewsForm from './AddReviewsForm'
+import getCurrentUser from '../../services/getCurrentUser'
 
 const ShowService = (props) => {
   const [service, setService] = useState({
@@ -12,9 +14,17 @@ const ShowService = (props) => {
     rating: '',
     reviews: []
   })
-  const [reviews, setReviews] = useState([])
   const [errors, setErrors] = useState([])
+  const [currentUser, setCurrentUser] = useState(undefined);
 
+  const fetchCurrentUser = async () => {
+    try {
+      const user = await getCurrentUser()
+      setCurrentUser(user)
+    } catch(err) {
+      setCurrentUser(null)
+    }
+  }
 
   const getServiceAndReviews = async () => {
     try {
@@ -30,13 +40,13 @@ const ShowService = (props) => {
   }
 
   useEffect(() => {
+    fetchCurrentUser()
     getServiceAndReviews()
   }, [])
 
-  const reviews = service.reviews.map((review) => {
+  const reviewsMap = service.reviews.map((review) => {
     return(
       <ReviewTile
-        key={review.id}
         review={review}
       />
     )
@@ -44,25 +54,25 @@ const ShowService = (props) => {
 
   const postReview = async (newReview) =>{
     try {
-      const response = await fetch("/api/v1/reviews", {
+      const response = await fetch(`/api/v1/services/${props.match.params.id}/reviews`, {
         method:"POST",
-        headers:  new Headers ({
-          "Content-type" : "application/json"
+        headers: new Headers ({
+          "Content-Type" : "application/json"
         }),
         body: JSON.stringify(newReview),
       });
       if(!response.ok){
         if(response.status === 422){
-          const body = await response.json()
-          const newErrors = translateServerErrors(body.errors)
+          const responseBody = await response.json()
+          const newErrors = translateServerErrors(responseBody.errors)
           setErrors(newErrors)
         } else{
           throw (new Error(`${response.status} ${response.statusText}`))
         }
       }
-      const body = await response.json()
+      const responseBody = await response.json()
       setErrors([])
-      setReviews([...reviews, body.review])
+      setService({...service, reviews: [...service.reviews, responseBody.review]})
       return true
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)
@@ -70,26 +80,28 @@ const ShowService = (props) => {
   }
 
   let reviewFormMessage = <h1>Sign in to Add New Service</h1>
-  if (props.user) {
-    reviewFormMessage = <AddReviewsForm postReview={postReview} />
+  if (currentUser) {
+    reviewFormMessage = <AddReviewsForm postReview={postReview} userId={currentUser.id} serviceId = {props.match.params.id} />
   }
 
   return(
-    <div className= "grid-x grid-margin-x">
+    <div className= "grid-x grid-margin-x show-services-page">
       <ErrorList errors={errors}/>
       <div className="cell small-6 service">
         <h1>{service.name}</h1>
-        <img className="show-page-image"
-          src={service.photoUrl}
-          alt="photo of snow removal service"
-        />
-        <p>stars: {service.rating}</p>
+        <div className="show-page-image">
+          <img 
+            src={service.photoUrl}
+            alt="photo of snow removal service"
+          />
+          <p>Stars: {service.rating}</p>
+        </div>
+        <div className="reviews-form">
+          {reviewFormMessage}
+        </div>
       </div>
       <div className="cell small-6 reviews">
-        {reviews}
-      </div>
-      <div>
-        {reviewFormMessage}
+        {reviewsMap}
       </div>
     </div>
   )
