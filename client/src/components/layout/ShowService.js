@@ -3,6 +3,7 @@ import ReviewTile from './ReviewTile'
 import ErrorList from "./ErrorList.js"
 import AddReviewsForm from './AddReviewsForm'
 import getCurrentUser from '../../services/getCurrentUser'
+import translateServerErrors from '../../services/translateServerErrors'
 
 const ShowService = (props) => {
   const [service, setService] = useState({
@@ -65,6 +66,7 @@ const ShowService = (props) => {
         if(response.status === 422){
           const responseBody = await response.json()
           const newErrors = translateServerErrors(responseBody.errors)
+          debugger
           setErrors(newErrors)
         } else{
           throw (new Error(`${response.status} ${response.statusText}`))
@@ -79,14 +81,13 @@ const ShowService = (props) => {
     }
   }
 
-  let reviewFormMessage = <h1>Sign in to Add New Service</h1>
+  let reviewFormMessage = <h1>Sign in to Add New Review</h1>
   if (currentUser) {
     reviewFormMessage = <AddReviewsForm postReview={postReview} userId={currentUser.id} serviceId = {props.match.params.id} />
   }
 
   return(
     <div className= "grid-x grid-margin-x show-services-page">
-      <ErrorList errors={errors}/>
       <div className="cell small-6 service">
         <h1>{service.name}</h1>
         <div className="show-page-image">
@@ -97,6 +98,7 @@ const ShowService = (props) => {
           <p>Stars: {service.rating}</p>
         </div>
         <div className="reviews-form">
+          <ErrorList errors={errors}/>
           {reviewFormMessage}
         </div>
       </div>
