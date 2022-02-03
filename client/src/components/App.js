@@ -11,7 +11,7 @@ import ServicesIndex from "./layout/ServicesIndex"
 import ShowService from './layout/ShowService'
 
 const App = (props) => {
-  const [currentUser, setCurrentUser] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState(null);
   const fetchCurrentUser = async () => {
     try {
       const user = await getCurrentUser()

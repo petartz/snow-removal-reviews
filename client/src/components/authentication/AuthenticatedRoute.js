@@ -1,12 +1,12 @@
-import React from "react";
-import { Redirect, Route } from "react-router";
+import React from "react"
+import { Redirect, Route } from "react-router"
 
 const AuthenticationCheck = ({ component: Component, user }) => {
   if (user !== null) {
-    return <Component />;
+    return <Component user={user} />
   }
-  return <Redirect to="/user-sessions/new" />;
-};
+  return <Redirect to="/user-sessions/new" />
+}
 
 const AuthenticatedRoute = ({ component, user, ...rest }) => {
   return (
@@ -16,7 +16,7 @@ const AuthenticatedRoute = ({ component, user, ...rest }) => {
     >
       <AuthenticationCheck user={user} component={component} />
     </Route>
-  );
-};
+  )
+}
 
-export default AuthenticatedRoute;
+export default AuthenticatedRoute
