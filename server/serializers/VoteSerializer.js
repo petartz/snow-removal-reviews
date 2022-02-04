@@ -11,9 +11,9 @@ class VoteSerializer {
     }
 
     relatedVotes.forEach(relatedVote => {
-      if (relatedVote.voteValue === 1) {
+      if (relatedVote.value === 1) {
         totalCount.upVote++
-      } else if (relatedVote.voteValue === -1) {
+      } else if (relatedVote.value === -1) {
         totalCount.downVote++
       }
     })

@@ -58,7 +58,7 @@ class User extends uniqueFunc(Model) {
           to: 'votes.userId'
         }
       },
-      reviews: {
+      votedReviews: {
         relation: Model.ManyToManyRelation,
         modelClass: Review,
         join: {

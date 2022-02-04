@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { withRouter } from 'react-router'
 import getCurrentUser from '../../services/getCurrentUser'
 
 const Vote = props => {
@@ -10,6 +11,7 @@ const Vote = props => {
   })
   const [currentUser, setCurrentUser] = useState(undefined)
 
+  // WILL NEED TO BE REMOVED ONCE THE OTHER GUYS MERGE THEIR BRANCH
   const fetchCurrentUser = async () => {
     try {
       const user = await getCurrentUser()
@@ -18,16 +20,11 @@ const Vote = props => {
       setCurrentUser(null)
     }
   }
+  // ~~~~~~~~~~~~~~~~~~~~~~~~ //
 
   const getVoteCount = async () => {
     try {
-      const response = await fetch('/api/v1/votes/initial', {
-        method: "POST",
-        headers: new Headers({
-          "Content-Type": "application/json"
-        }),
-        body: JSON.stringify({ reviewId }) 
-      })
+      const response = await fetch(`/api/v1/votes/${reviewId}`)    
       if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`
         const error = new Error(errorMessage)
@@ -47,14 +44,13 @@ const Vote = props => {
 
   const addVote = async (voteValue) => {
     try {
-      const response = await fetch('/api/v1/votes', {
+      const response = await fetch(`/api/v1/votes/${reviewId}`, {
         method: "POST",
         headers: new Headers({
           "Content-Type": "application/json"
         }),
         body: JSON.stringify({
-          voteValue: voteValue,
-          reviewId: reviewId
+          voteValue: voteValue
         }) 
       })
       if (!response.ok) {
@@ -129,4 +125,4 @@ const Vote = props => {
   )
 }
 
-export default Vote
+export default withRouter(Vote)

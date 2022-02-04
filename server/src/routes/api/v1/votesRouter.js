@@ -5,9 +5,9 @@ import { Review } from '../../../models/index.js'
 
 const votesRouter = new express.Router()
 
-votesRouter.post('/initial', async (req, res) => {
+votesRouter.get('/:reviewId', async (req, res) => {
   try {
-    const { reviewId } = req.body
+    const { reviewId } = req.params
     const totalCount = await VoteSerializer.getTotal(reviewId)
     return res.status(201).json({ totalCount })
   } catch (error) {
@@ -16,13 +16,14 @@ votesRouter.post('/initial', async (req, res) => {
   }
 })
 
-votesRouter.post('/', async (req, res) => {
+votesRouter.post('/:reviewId', async (req, res) => {
   try {
-    const { voteValue, reviewId } = req.body
+    const { voteValue } = req.body
+    const { reviewId } = req.params
     const priorVote = await VoteSerializer.checkForPriorVote(reviewId, req.user.id)
     if (!priorVote) {
       await Vote.query().insertAndFetch({
-        voteValue: voteValue,
+        value: voteValue,
         userId: req.user.id,
         reviewId: reviewId
       })
