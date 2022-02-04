@@ -6,8 +6,8 @@ const ReviewTile = (props) => {
     <div className="reviews-tile">
       <div className="inside-spacing">
         <h1>{heading}</h1>
-        <p>{description}</p>
-        <p>{rating}</p>
+        <p>Description: {description}</p>
+        <p>Rating: {rating}</p>
       </div>
     </div>
   )
