@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router'
-import getCurrentUser from '../../services/getCurrentUser'
 
 const Vote = props => {
 
@@ -9,18 +8,6 @@ const Vote = props => {
     upVote: 0,
     downVote: 0
   })
-  const [currentUser, setCurrentUser] = useState(undefined)
-
-  // WILL NEED TO BE REMOVED ONCE THE OTHER GUYS MERGE THEIR BRANCH
-  const fetchCurrentUser = async () => {
-    try {
-      const user = await getCurrentUser()
-      setCurrentUser(user)
-    } catch(err) {
-      setCurrentUser(null)
-    }
-  }
-  // ~~~~~~~~~~~~~~~~~~~~~~~~ //
 
   const getVoteCount = async () => {
     try {
@@ -39,7 +26,6 @@ const Vote = props => {
 
   useEffect(() => {
     getVoteCount()
-    fetchCurrentUser()
   }, [])
 
   const addVote = async (voteValue) => {
@@ -106,7 +92,7 @@ const Vote = props => {
   let downButton
   let deleteButton
   let signInMessage = <p>Sign in to vote</p>
-  if (currentUser) {
+  if (props.user) {
     signInMessage = null
     upButton = <button className="button" onClick={upClickHandler}>Upvote</button>
     downButton = <button className="button" onClick={downClickHandler}>Downvote</button>

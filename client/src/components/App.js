@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React, { useState, useEffect, } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-=======
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"; 
->>>>>>> efccf9b05e1f2527203d6706dec1990b041ad837
 import { hot } from "react-hot-loader/root";
 
 import getCurrentUser from "../services/getCurrentUser";
@@ -17,10 +12,6 @@ import ShowService from './layout/ShowService'
 
 
 const App = (props) => {
-<<<<<<< HEAD
-=======
-
->>>>>>> efccf9b05e1f2527203d6706dec1990b041ad837
   const [currentUser, setCurrentUser] = useState(null);
   const fetchCurrentUser = async () => {
     try {

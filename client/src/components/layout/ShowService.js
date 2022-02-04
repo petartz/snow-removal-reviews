@@ -40,6 +40,7 @@ const ShowService = (props) => {
       <ReviewTile
         key = {review.id}
         review={review}
+        user={props.user}
       />
     )
   })

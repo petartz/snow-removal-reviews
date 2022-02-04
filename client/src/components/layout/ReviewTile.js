@@ -10,7 +10,10 @@ const ReviewTile = (props) => {
         <p>Description: {description}</p>
         <p>Rating: {rating}</p>
       </div>
-      <Vote reviewId={props.review.id}/>
+      <Vote 
+        reviewId={props.review.id}
+        user={props.user}
+      />
     </div>
   )
 }
