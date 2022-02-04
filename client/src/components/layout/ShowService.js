@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import ReviewTile from './ReviewTile'
 import ErrorList from "./ErrorList.js"
 import AddReviewsForm from './AddReviewsForm'
-import getCurrentUser from '../../services/getCurrentUser'
 import translateServerErrors from '../../services/translateServerErrors'
 
 const ShowService = (props) => {
@@ -16,16 +15,7 @@ const ShowService = (props) => {
     reviews: []
   })
   const [errors, setErrors] = useState([])
-  const [currentUser, setCurrentUser] = useState(undefined);
-
-  const fetchCurrentUser = async () => {
-    try {
-      const user = await getCurrentUser()
-      setCurrentUser(user)
-    } catch(err) {
-      setCurrentUser(null)
-    }
-  }
+  debugger
 
   const getServiceAndReviews = async () => {
     try {
@@ -41,7 +31,6 @@ const ShowService = (props) => {
   }
 
   useEffect(() => {
-    fetchCurrentUser()
     getServiceAndReviews()
   }, [])
 
@@ -82,8 +71,8 @@ const ShowService = (props) => {
   }
 
   let reviewFormMessage = <h1>Sign in to Add New Review</h1>
-  if (currentUser) {
-    reviewFormMessage = <AddReviewsForm postReview={postReview} userId={currentUser.id} serviceId = {props.match.params.id} />
+  if (props.user) {
+    reviewFormMessage = <AddReviewsForm postReview={postReview} userId={props.user.id} serviceId = {props.match.params.id} />
   }
 
   return(
@@ -109,4 +98,4 @@ const ShowService = (props) => {
   )
 }
 
-export default ShowService
+export default ShowService 

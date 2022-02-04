@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"; 
+import { withRouter } from "react-router"
 import { hot } from "react-hot-loader/root";
 
 import getCurrentUser from "../services/getCurrentUser";
@@ -10,8 +11,10 @@ import TopBar from "./layout/TopBar";
 import ServicesIndex from "./layout/ServicesIndex"
 import ShowService from './layout/ShowService'
 
+
 const App = (props) => {
-  const [currentUser, setCurrentUser] = useState(undefined);
+
+  const [currentUser, setCurrentUser] = useState(null);
   const fetchCurrentUser = async () => {
     try {
       const user = await getCurrentUser()
@@ -25,6 +28,8 @@ const App = (props) => {
     fetchCurrentUser()
   }, [])
 
+  const ShowServiceWithRouter = withRouter(ShowService)
+
   return (
     <Router>
       <TopBar user={currentUser} />
@@ -32,7 +37,9 @@ const App = (props) => {
         <Route exact path="/">
           <ServicesIndex user={currentUser}/>
         </Route>
-        <Route exact path="/services/:id" component={ShowService}/>
+        <Route exact path="/services/:id">
+          <ShowServiceWithRouter user = {currentUser}/>
+        </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
       </Switch>
@@ -40,4 +47,4 @@ const App = (props) => {
   );
 };
 
-export default hot(App);
+export default (hot(App));
