@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"; 
-import { withRouter } from "react-router"
 import { hot } from "react-hot-loader/root";
 
 import getCurrentUser from "../services/getCurrentUser";
@@ -28,18 +27,19 @@ const App = (props) => {
     fetchCurrentUser()
   }, [])
 
-  const ShowServiceWithRouter = withRouter(ShowService)
-
   return (
     <Router>
       <TopBar user={currentUser} />
       <Switch>
+        
         <Route exact path="/">
           <ServicesIndex user={currentUser}/>
         </Route>
+
         <Route exact path="/services/:id">
-          <ShowServiceWithRouter user = {currentUser}/>
+          <ShowService user = {currentUser}/>
         </Route>
+
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
       </Switch>

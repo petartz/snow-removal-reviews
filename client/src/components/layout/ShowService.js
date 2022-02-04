@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { withRouter } from "react-router" // <- here
 import ReviewTile from './ReviewTile'
 import ErrorList from "./ErrorList.js"
 import AddReviewsForm from './AddReviewsForm'
 import translateServerErrors from '../../services/translateServerErrors'
+import { Link } from 'react-router-dom'
 
 const ShowService = (props) => {
   const [service, setService] = useState({
@@ -15,7 +17,6 @@ const ShowService = (props) => {
     reviews: []
   })
   const [errors, setErrors] = useState([])
-  debugger
 
   const getServiceAndReviews = async () => {
     try {
@@ -37,6 +38,7 @@ const ShowService = (props) => {
   const reviewsMap = service.reviews.map((review) => {
     return(
       <ReviewTile
+        key = {review.id}
         review={review}
       />
     )
@@ -55,7 +57,6 @@ const ShowService = (props) => {
         if(response.status === 422){
           const responseBody = await response.json()
           const newErrors = translateServerErrors(responseBody.errors)
-          debugger
           setErrors(newErrors)
         } else{
           throw (new Error(`${response.status} ${response.statusText}`))
@@ -70,32 +71,38 @@ const ShowService = (props) => {
     }
   }
 
-  let reviewFormMessage = <h1>Sign in to Add New Review</h1>
+  let reviewFormMessage = <Link to="/user-sessions/new">Sign in to Add New Review</Link>
   if (props.user) {
-    reviewFormMessage = <AddReviewsForm postReview={postReview} userId={props.user.id} serviceId = {props.match.params.id} />
+    reviewFormMessage = <AddReviewsForm postReview={postReview}/>
   }
 
   return(
     <div className= "grid-x grid-margin-x show-services-page">
       <div className="cell small-6 service">
         <h1>{service.name}</h1>
+
         <div className="show-page-image">
-          <img 
+          <img className="show-page-image"
             src={service.photoUrl}
             alt="photo of snow removal service"
           />
           <p>Stars: {service.rating}</p>
         </div>
+
         <div className="reviews-form">
           <ErrorList errors={errors}/>
-          {reviewFormMessage}
+          <div className='reviews-form-message'> 
+            {reviewFormMessage}
+          </div>
         </div>
       </div>
+
       <div className="cell small-6 reviews">
         {reviewsMap}
       </div>
+
     </div>
   )
 }
 
-export default ShowService 
+export default withRouter(ShowService)

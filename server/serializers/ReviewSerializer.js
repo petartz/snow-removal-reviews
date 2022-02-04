@@ -1,6 +1,6 @@
 class ReviewSerializer{
   static getSummary(review){
-    const allowedAttributes = ["heading", "description", "rating"]
+    const allowedAttributes = ["heading", "description", "rating", "id"]
     let serializedReview = {}
     for(const attribute of allowedAttributes){
       serializedReview[attribute] = review[attribute]

@@ -5,7 +5,6 @@ const AddReviewsForm = (props) => {
     heading: "",
     description: "",
     rating: "",
-    userId: "",
   })
 
   const handleInputChange = event =>{
@@ -25,7 +24,6 @@ const AddReviewsForm = (props) => {
 
   const handleSubmit = async (event) =>{
     event.preventDefault()
-    newReview.userId = props.userId
     const success = await props.postReview(newReview)
     if(success){
       clearForm()
@@ -36,6 +34,7 @@ const AddReviewsForm = (props) => {
     <div className="callout reviews-form">
       <h1>Add New Review</h1>
       <form onSubmit={handleSubmit}>
+
         <label htmlFor="heading">
           Heading:
           <input
@@ -45,6 +44,7 @@ const AddReviewsForm = (props) => {
             onChange={handleInputChange}
             value={newReview.heading}/>
         </label>
+
         <label htmlFor="description">
           Description:
           <input
@@ -54,6 +54,7 @@ const AddReviewsForm = (props) => {
             onChange={handleInputChange}
             value={newReview.description}/>
         </label>
+
         <label htmlFor="rating">
           Rating:
           <input
@@ -63,7 +64,8 @@ const AddReviewsForm = (props) => {
             onChange={handleInputChange}
             value={newReview.rating}/>
         </label>
-        <input type="submit"></input>
+
+        <input type="submit"/>
       </form>
     </div>
   )
