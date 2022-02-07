@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from "react-router-dom"
 import { withRouter } from 'react-router'
 
@@ -14,9 +14,7 @@ const Vote = props => {
         headers: new Headers({
           "Content-Type": "application/json"
         }),
-        body: JSON.stringify({ 
-          voteValue: voteValue
-        })
+        body: JSON.stringify({ voteValue })
       })
       if (!response.ok) {
         if (response.status === 422) {
