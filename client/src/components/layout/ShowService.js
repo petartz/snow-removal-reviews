@@ -35,12 +35,14 @@ const ShowService = (props) => {
     getServiceAndReviews()
   }, [])
 
+
   const reviewsMap = service.reviews.map((review) => {
     return(
       <ReviewTile
         key = {review.id}
         review={review}
         user={props.user}
+        getServiceAndReviews={getServiceAndReviews}
       />
     )
   })
