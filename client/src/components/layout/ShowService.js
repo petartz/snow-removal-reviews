@@ -92,7 +92,7 @@ const ShowService = (props) => {
 
         <div className="reviews-form">
           <ErrorList errors={errors}/>
-          <div className='reviews-form-message'> 
+          <div className='reviews-form-message'>
             {reviewFormMessage}
           </div>
         </div>

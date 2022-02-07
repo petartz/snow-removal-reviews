@@ -26,9 +26,9 @@ class ServiceSerializer{
     }
 
     const relatedReviews = await service.$relatedQuery('reviews')
-    const serializedReviews = relatedReviews.map((review) => {
-      return ReviewSerializer.getSummary(review);
-    });
+    const serializedReviews = await Promise.all(relatedReviews.map( async (review) => {
+      return await ReviewSerializer.getSummary(review);
+    }));
 
     relatedReviews.forEach(review => {
       ratingSum += review.rating
