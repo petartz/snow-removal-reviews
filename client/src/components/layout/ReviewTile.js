@@ -1,7 +1,8 @@
 import React from 'react'
+import Vote from "./Vote.js"
 
 const ReviewTile = (props) => {
-  const {heading, description, rating} = props.review
+  const { id, heading, description, rating, voteCount } = props.review
   return (
     <div className="reviews-tile">
       <div className="inside-spacing">
@@ -9,6 +10,11 @@ const ReviewTile = (props) => {
         <p>Description: {description}</p>
         <p>Rating: {rating}</p>
       </div>
+      <Vote
+        reviewId={id}
+        voteCount = {voteCount}
+        user={props.user}
+      />
     </div>
   )
 }

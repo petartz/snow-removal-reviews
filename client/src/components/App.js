@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"; 
+import React, { useState, useEffect, } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 
 import getCurrentUser from "../services/getCurrentUser";
@@ -12,7 +12,6 @@ import ShowService from './layout/ShowService'
 
 
 const App = (props) => {
-
   const [currentUser, setCurrentUser] = useState(null);
   const fetchCurrentUser = async () => {
     try {

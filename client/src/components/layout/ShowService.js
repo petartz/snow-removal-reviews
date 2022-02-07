@@ -40,6 +40,7 @@ const ShowService = (props) => {
       <ReviewTile
         key = {review.id}
         review={review}
+        user={props.user}
       />
     )
   })
@@ -91,7 +92,7 @@ const ShowService = (props) => {
 
         <div className="reviews-form">
           <ErrorList errors={errors}/>
-          <div className='reviews-form-message'> 
+          <div className='reviews-form-message'>
             {reviewFormMessage}
           </div>
         </div>
