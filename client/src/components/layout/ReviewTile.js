@@ -9,7 +9,7 @@ const ReviewTile = (props) => {
       if (props.user.id === props.review.userId) {
         return(
           <button onClick={handleDeleteClick}> 
-            Delete Review
+            Delete Review and Refresh List
           </button>
         )
       }
@@ -17,32 +17,7 @@ const ReviewTile = (props) => {
   }
 
   const handleDeleteClick = () => {
-    deleteYourReview()
-  }
-
-  const deleteYourReview = async () => {
-    try {
-      const response = await fetch('/api/v1/services/:id/reviews', {
-        method: "DELETE",
-        headers: new Headers({
-          "Content-Type": "application/json"
-        }),
-        body: JSON.stringify({ id })
-      })
-      if (!response.ok) {
-        if (response.status === 422) {
-          const body = await response.json()
-          alert(body.message)
-        }
-        const errorMessage = `${response.status} (${response.statusText})`
-        const error = new Error(errorMessage)
-        throw(error)
-      }
-      const body = await response.json()
-      props.getServiceAndReviews()
-    } catch (error) {
-      return console.error(`Error in fetch: ${error.mesage}`)
-    }
+    props.deleteYourReview(id)
   }
   
   return (

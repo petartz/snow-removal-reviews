@@ -25,9 +25,9 @@ servicesReviewsRouter.post("/", async (req,res) =>{
 
 servicesReviewsRouter.delete('/', async (req, res) => {
   try {
-    const { id } = req.body
-    await Review.query().deleteById(id)
-    return res.status(201).json({ message: "Review Deleted!" })
+    const { reviewId } = req.body
+    await Review.query().deleteById(reviewId)
+    return res.status(201).json({ message: 'Successful Delete' })
   } catch (error) {
     return res.status(500).json({ errors: error })
   }
