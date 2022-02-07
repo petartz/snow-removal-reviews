@@ -21,13 +21,10 @@ class VoteSerializer {
     return totalCount
   }
 
-  static async checkForPriorVote(reviewId, userId) {
+  static async getPriorVote(reviewId, userId) {
     const review = await Review.query().findById(reviewId)
     const priorVote = await review.$relatedQuery("votes").findOne({ userId: userId })
-    if (!priorVote) {
-      return false
-    }
-    return true
+    return priorVote
   }
 }
 
