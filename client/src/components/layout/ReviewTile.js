@@ -2,7 +2,21 @@ import React from 'react'
 import Vote from "./Vote.js"
 
 const ReviewTile = (props) => {
-  const { id, heading, description, rating, voteCount } = props.review
+  const {heading, description, rating, id, voteCount } = props.review
+  
+  const handleDeleteClick = () => {
+    props.deleteYourReview(id)
+  }
+
+  let deleteButtonElement = null
+  if (props.user) {
+    if (props.user.id === props.review.userId) {
+      deleteButtonElement = <button onClick={handleDeleteClick}> 
+          Delete Review
+        </button>
+    }
+  }
+
   return (
     <div className="reviews-tile">
       <div className="inside-spacing">
@@ -12,9 +26,10 @@ const ReviewTile = (props) => {
       </div>
       <Vote
         reviewId={id}
-        voteCount = {voteCount}
+        voteCount={voteCount}
         user={props.user}
       />
+      {deleteButtonElement}
     </div>
   )
 }
