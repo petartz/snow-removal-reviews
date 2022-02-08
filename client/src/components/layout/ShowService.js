@@ -36,6 +36,42 @@ const ShowService = (props) => {
     getServiceAndReviews()
   }, [])
 
+
+  const submitEditReview = async (editedReview) => {
+    try {
+      const response = await fetch(`/api/v1/services/${props.match.params.id}/editReview`, {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type" : "application/json"
+        }),
+        body: JSON.stringify(editedReview)
+      })
+
+      if (!response.ok){
+        if(response.status === 422){
+          const body = await response.json()
+          alert(body.message)
+        }
+        const errorMessage = `${response.status} (${response.statusText})`
+        const error = new Error(errorMessage)
+        throw(error)
+      }
+      const replacedReview = service.reviews.find(review => review.id === editedReview.id)
+      const replacedIndex = service.reviews.indexOf(replacedReview)
+
+      const allReviews = service.reviews.filter(review => review.id != editedReview.id)
+      allReviews.splice(replacedIndex, 0, editedReview)
+
+      setService({ ...service, reviews: allReviews })
+
+      debugger
+      return true
+    } catch(error) {
+      console.log('you messed up')
+    }
+
+  }
+
   const deleteYourReview = async (reviewId) => {
     try {
       const response = await fetch(`/api/v1/services/${props.match.params.id}/reviews`, {
@@ -72,6 +108,7 @@ const ShowService = (props) => {
 
         currentReview = {currentReview}
         setCurrentReview = {setCurrentReview}
+        submitEditReview = {submitEditReview}
       />
     )
   })

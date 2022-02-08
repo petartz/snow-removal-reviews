@@ -35,9 +35,11 @@ const ReviewTile = (props) => {
           showEditForm =
             <EditForm
               handleEditClick={handleEditClick}
+              id = {id}
               heading = {heading}
               description = {description}
               rating = {rating}
+              submitEditReview = {props.submitEditReview}
             />
           }
     }

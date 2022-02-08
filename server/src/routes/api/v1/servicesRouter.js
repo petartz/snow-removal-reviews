@@ -4,6 +4,7 @@ import ServiceSerializer from "../../../../serializers/ServiceSerializer.js";
 import cleanUserInput from "../../../../services/cleanUserInput.js";
 import { ValidationError } from "objection";
 import servicesReviewsRouter from "./servicesReviewsRouter.js";
+import editReviewsRouter from "./editReviewsRouter.js";
 
 const serviceRouter = new express.Router();
 
@@ -20,6 +21,7 @@ serviceRouter.get("/", async (req, res) => {
 });
 
 serviceRouter.use("/:id/reviews", servicesReviewsRouter)
+serviceRouter.use("/:id/editReview", editReviewsRouter)
 
 
 serviceRouter.get("/:id", async (req, res) =>{

@@ -1,23 +1,33 @@
 import React, { useState } from "react";
 
 
+
 const EditForm = props => {
 
-  const [newReview, setNewReview] = useState({
-    heading: "",
-    description: "",
-    rating: "",
+  const [editedReview, setEditReview] = useState({
+    id: props.id,
+    heading: props.heading,
+    description: props.description,
+    rating: props.rating,
   })
 
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const success = await props.submitEditReview(editedReview)
+    if(success){
+      clearForm()
+    }
+  }
+
   const handleInputChange = event => {
-    setNewReview({
-      ...newReview,
+    setEditReview({
+      ...editedReview,
       [event.currentTarget.name]: event.currentTarget.value
     })
   }
 
   const clearForm = () => {
-    setNewReview({
+    setEditReview({
       heading: "",
       description: "",
       rating: ""
@@ -28,7 +38,7 @@ const EditForm = props => {
   return(
     <div className="callout reviews-form">
       <h1>Edit your Review</h1>
-      <form onSubmit={props.handleEditClick}>
+      <form onSubmit={handleSubmit}>
 
         <label htmlFor="heading">
           Heading:
@@ -37,7 +47,7 @@ const EditForm = props => {
             id="heading"
             name="heading"
             onChange={handleInputChange}
-            value={props.heading}/>
+            value={editedReview.heading}/>
         </label>
 
         <label htmlFor="description">
@@ -47,7 +57,7 @@ const EditForm = props => {
             id="description"
             name="description"
             onChange={handleInputChange}
-            value={props.description}/>
+            value={editedReview.description} />
         </label>
 
         <label htmlFor="rating">
@@ -57,7 +67,7 @@ const EditForm = props => {
             id="rating"
             name="rating"
             onChange={handleInputChange}
-            value={props.rating}/>
+            value={editedReview.rating} />
         </label>
 
         <input type="submit"/>
