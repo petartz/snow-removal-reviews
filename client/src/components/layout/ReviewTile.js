@@ -4,22 +4,19 @@ import Vote from "./Vote.js"
 const ReviewTile = (props) => {
   const {heading, description, rating, id, voteCount } = props.review
   
-  const deleteReview = () => {
-    if (props.user) {
-      if (props.user.id === props.review.userId) {
-        return(
-          <button onClick={handleDeleteClick}> 
-            Delete Review
-          </button>
-        )
-      }
-    }
-  }
-
   const handleDeleteClick = () => {
     props.deleteYourReview(id)
   }
-  
+
+  let deleteButtonElement = null
+  if (props.user) {
+    if (props.user.id === props.review.userId) {
+      deleteButtonElement = <button onClick={handleDeleteClick}> 
+          Delete Review
+        </button>
+    }
+  }
+
   return (
     <div className="reviews-tile">
       <div className="inside-spacing">
@@ -32,7 +29,7 @@ const ReviewTile = (props) => {
         voteCount={voteCount}
         user={props.user}
       />
-      {deleteReview()}
+      {deleteButtonElement}
     </div>
   )
 }
