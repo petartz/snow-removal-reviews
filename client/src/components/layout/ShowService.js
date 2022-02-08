@@ -17,6 +17,7 @@ const ShowService = (props) => {
     reviews: []
   })
   const [errors, setErrors] = useState([])
+  const [editReview, setEditReview] = useState(false)
 
   const getServiceAndReviews = async () => {
     try {
@@ -60,7 +61,6 @@ const ShowService = (props) => {
     }
   }
 
-
   const reviewsMap = service.reviews.map((review) => {
     return(
       <ReviewTile
@@ -69,6 +69,8 @@ const ShowService = (props) => {
         user={props.user}
         getServiceAndReviews={getServiceAndReviews}
         deleteYourReview={deleteYourReview}
+        editReview = {editReview}
+        setEditReview = {setEditReview}
       />
     )
   })
@@ -102,7 +104,10 @@ const ShowService = (props) => {
 
   let reviewFormMessage = <Link to="/user-sessions/new">Sign in to Add New Review</Link>
   if (props.user) {
-    reviewFormMessage = <AddReviewsForm postReview={postReview}/>
+    reviewFormMessage = 
+      <AddReviewsForm 
+        postReview={postReview}
+      />
   }
 
   return(
@@ -129,7 +134,6 @@ const ShowService = (props) => {
       <div className="cell small-6 reviews">
         {reviewsMap}
       </div>
-
     </div>
   )
 }

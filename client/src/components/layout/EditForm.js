@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react"
-import ReviewTile from "./ReviewTile"
+import React, { useState } from "react";
 
-const AddReviewsForm = (props) => {
+
+const EditForm = props => {
+
   const [newReview, setNewReview] = useState({
     heading: "",
     description: "",
@@ -23,19 +24,12 @@ const AddReviewsForm = (props) => {
     })
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    const success = await props.postReview(newReview)
-    if(success){
-      clearForm()
-    }
-  }
-
+  
   return(
     <div className="callout reviews-form">
-      
-      <form onSubmit={handleSubmit}>
-        <h1>Add New Review</h1>
+      <h1>Add New Review</h1>
+      <form onSubmit={props.handleEditClick}>
+
         <label htmlFor="heading">
           Heading:
           <input
@@ -70,6 +64,6 @@ const AddReviewsForm = (props) => {
       </form>
     </div>
   )
+  
 }
-
-export default AddReviewsForm
+export default EditForm
