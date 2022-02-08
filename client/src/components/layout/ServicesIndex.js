@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import ServiceTile from "./ServiceTile.js"
 import AddServicesForm from "./AddServicesForm.js"
 import translateServerErrors from "../../services/translateServerErrors.js"
@@ -58,17 +59,26 @@ const ServicesIndex = (props) => {
     return <ServiceTile key={service.id} service={service} />
   })
 
-  let serviceFormSection = <h1>Sign in to Add New Service</h1>
+  let serviceFormSection = <div className="centered"><Link to="/user-sessions/new" className="sign-in-link">Sign in to Add a New Service</Link></div>
   if (props.user) {
     serviceFormSection = <AddServicesForm postService={postService} />
   }
   
   return (
     <div>
-      <h1>Snow Removal Service Reviews!!</h1>
-      {servicesTiles}
-      <ErrorList errors={errors}/>
-      {serviceFormSection}
+      <div className="index-header">
+        <h1>Snow Removal Services</h1>
+      </div>
+
+      <div className="grid-x grid-margin-x bottom-half">
+        <div className="cell small-6">
+          {servicesTiles}
+        </div>
+        <div className="cell small-6 ">
+          <ErrorList errors={errors}/>
+          {serviceFormSection}
+        </div>
+      </div>
     </div>
   )
 }

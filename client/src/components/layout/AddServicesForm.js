@@ -32,7 +32,7 @@ const AddServicesForm = (props) => {
   }
 
   return (
-    <div className="callout services-form">
+    <div className="callout form">
       <h1 className="add-service-heading">Add A New Service</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">
@@ -85,7 +85,7 @@ const AddServicesForm = (props) => {
             value={newService.photoUrl}
           />
         </label>
-        <input type="submit"></input>
+        <input className ="submit-button" type="submit"></input>
       </form>
     </div>
   )

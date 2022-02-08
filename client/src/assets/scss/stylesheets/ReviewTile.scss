@@ -1,0 +1,55 @@
+.votes {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 30%;
+  position: absolute;
+  top: 10px;
+  right: 5px;
+}
+
+.icon-up {
+  margin-right: 0.5em;
+}
+
+.icon-down {
+  margin-right: 0.5em;
+}
+
+.icon-up:hover {
+  cursor: pointer;
+  color: rgb(13, 202, 13);
+}
+
+.icon-down:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.reviews-tile {
+  border: 2px solid $dark-blue;
+  border-radius: 0.5em;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 2em;
+  margin-bottom: 1em;
+  position: relative;
+  background-color: #fefaf9;
+  h1 {
+    font-size: 2em;
+  }
+  p {
+    font-size: 1.2em;
+  }
+}
+
+.delete-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  size: 150%
+}
+
+.delete-icon:hover {
+  cursor: pointer;
+  color: red;
+}
