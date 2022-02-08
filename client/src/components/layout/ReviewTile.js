@@ -4,43 +4,44 @@ import EditForm from "./EditForm.js"
 
 const ReviewTile = (props) => {
   const {heading, description, rating, id, voteCount } = props.review
-  
+
   const handleDeleteClick = () => {
     props.deleteYourReview(id)
   }
 
-  const handleEditClick = async (event) => {
-    props.setEditReview(true)
-    alert('clicked')
-    event.preventDefault()
-    // const success = await props.postReview(newReview)
-    // if(success){
-    //   clearForm()
-    // }
+  const handleEditClick = async () => {
+    (props.currentReview === id) ? props.setCurrentReview(null) : props.setCurrentReview(id)
   }
-  
+
   let showEditForm = null
   let deleteButtonElement = null
   if (props.user) {
     if (props.user.id === props.review.userId) {
-      deleteButtonElement = 
+      deleteButtonElement =
         <div className="crud-buttons">
-          <button 
-            className="button" 
-            onClick={handleDeleteClick}> 
+          <button
+            className="button"
+            onClick={handleDeleteClick}>
               Delete Review
           </button>
-          <button 
-            className="button" 
-            onClick={handleEditClick}> 
+          <button
+            className="button"
+            onClick={handleEditClick}>
               Edit Review
           </button>
           </div>
-        if(props.editReview){
-          showEditForm = <EditForm handleEditClick={handleEditClick} />
-        }
+
+        if((props.currentReview === id)){
+          showEditForm =
+            <EditForm
+              handleEditClick={handleEditClick}
+              heading = {heading}
+              description = {description}
+              rating = {rating}
+            />
+          }
     }
-  }    
+  }
 
   return (
     <div className="reviews-tile">

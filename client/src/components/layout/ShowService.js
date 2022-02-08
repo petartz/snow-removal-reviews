@@ -17,7 +17,7 @@ const ShowService = (props) => {
     reviews: []
   })
   const [errors, setErrors] = useState([])
-  const [editReview, setEditReview] = useState(false)
+  const [currentReview, setCurrentReview] = useState(null)
 
   const getServiceAndReviews = async () => {
     try {
@@ -69,8 +69,9 @@ const ShowService = (props) => {
         user={props.user}
         getServiceAndReviews={getServiceAndReviews}
         deleteYourReview={deleteYourReview}
-        editReview = {editReview}
-        setEditReview = {setEditReview}
+
+        currentReview = {currentReview}
+        setCurrentReview = {setCurrentReview}
       />
     )
   })
@@ -104,8 +105,8 @@ const ShowService = (props) => {
 
   let reviewFormMessage = <Link to="/user-sessions/new">Sign in to Add New Review</Link>
   if (props.user) {
-    reviewFormMessage = 
-      <AddReviewsForm 
+    reviewFormMessage =
+      <AddReviewsForm
         postReview={postReview}
       />
   }

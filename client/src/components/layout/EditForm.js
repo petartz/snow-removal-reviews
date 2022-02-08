@@ -24,10 +24,10 @@ const EditForm = props => {
     })
   }
 
-  
+
   return(
     <div className="callout reviews-form">
-      <h1>Add New Review</h1>
+      <h1>Edit your Review</h1>
       <form onSubmit={props.handleEditClick}>
 
         <label htmlFor="heading">
@@ -37,7 +37,7 @@ const EditForm = props => {
             id="heading"
             name="heading"
             onChange={handleInputChange}
-            value={newReview.heading}/>
+            value={props.heading}/>
         </label>
 
         <label htmlFor="description">
@@ -47,7 +47,7 @@ const EditForm = props => {
             id="description"
             name="description"
             onChange={handleInputChange}
-            value={newReview.description}/>
+            value={props.description}/>
         </label>
 
         <label htmlFor="rating">
@@ -57,13 +57,13 @@ const EditForm = props => {
             id="rating"
             name="rating"
             onChange={handleInputChange}
-            value={newReview.rating}/>
+            value={props.rating}/>
         </label>
 
         <input type="submit"/>
       </form>
     </div>
   )
-  
+
 }
 export default EditForm
