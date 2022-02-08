@@ -5,6 +5,7 @@ import ErrorList from "./ErrorList.js"
 import AddReviewsForm from './AddReviewsForm'
 import translateServerErrors from '../../services/translateServerErrors'
 import { Link } from 'react-router-dom'
+import StarRating from './StarRating'
 
 const ShowService = (props) => {
   const [service, setService] = useState({
@@ -100,36 +101,37 @@ const ShowService = (props) => {
     }
   }
 
-  let reviewFormMessage = <Link to="/user-sessions/new">Sign in to Add New Review</Link>
+  let reviewFormMessage = <div className="centered"><Link to="/user-sessions/new" className="sign-in-link">Sign in to Add New Review</Link></div>
   if (props.user) {
     reviewFormMessage = <AddReviewsForm postReview={postReview}/>
   }
 
   return(
-    <div className= "grid-x grid-margin-x show-services-page">
-      <div className="cell small-6 service">
-        <h1>{service.name}</h1>
-
-        <div className="show-page-image">
+    <div className="service-show">
+      <div className="service-header">
+        <div className="image-stars">
           <img className="show-page-image"
-            src={service.photoUrl}
-            alt="photo of snow removal service"
-          />
-          <p>Stars: {service.rating}</p>
+              src={service.photoUrl}
+              alt="photo of snow removal service"
+              />
+            <StarRating rating={service.rating} ratingLabel='Average Rating'/>
         </div>
-
-        <div className="reviews-form">
+        <div className="service-info">
+          <h1 className="service-name">{service.name}</h1>
+          <p>Phone number: {service.number}</p>
+          <p>{service.email}</p>
+          <a href={service.websiteUrl} target="_blank">Website</a>
+        </div>
+      </div>
+      <div className="grid-x grid-margin-x bottom-half">
+        <div className="cell small-6">
+          {reviewsMap}
+        </div>
+        <div className="cell small-6">
           <ErrorList errors={errors}/>
-          <div className='reviews-form-message'>
-            {reviewFormMessage}
-          </div>
+          {reviewFormMessage}
         </div>
       </div>
-
-      <div className="cell small-6 reviews">
-        {reviewsMap}
-      </div>
-
     </div>
   )
 }

@@ -1,11 +1,42 @@
-@import './Colors.scss';
+body {
+  font-family: 'Work Sans', sans-serif;
+}
 
 .service-image {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  border: 5px solid $darker-blue;
+  border-radius: 0.5em;
 }
 
 .service-tile {
-  background-color: $light-blue;
+  border: 2px solid $dark-blue;
+  border-radius: 0.5em;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 2em;
+  margin-bottom: 1em;
+  background-color: $light-beige;
+  a {
+    font-size: 2em;
+    font-weight: bold;
+    padding-left: 1em;
+  }
+}
+
+.index-header {
+  background-color: $darker-blue;
+  color: #fefaf9;
+  padding: 1em;
+  margin-bottom: 1em;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  h1{
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+  }
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
 }

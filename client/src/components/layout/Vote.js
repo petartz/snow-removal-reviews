@@ -34,29 +34,34 @@ const Vote = props => {
 
   const upClickHandler = async () => {
     await addVote(1)
+    
   }
 
   const downClickHandler = async () => {
     await addVote(-1)
   }
 
-  let upButton
-  let downButton
   let signInMessage = <Link to="/user-sessions/new">Sign in to vote</Link>
+  let handleUpVote = null
+  let handleDownVote = null
 
   if (props.user) {
     signInMessage = null
-    upButton = <button className="button" onClick={upClickHandler}>Upvote</button>
-    downButton = <button className="button" onClick={downClickHandler}>Downvote</button>
+    handleUpVote = upClickHandler
+    handleDownVote = downClickHandler
   }
 
   return (
-    <div>
+    <div className="votes">
       {signInMessage}
-      {upButton}
-      <div>Upvote Count: {voteCount.upVote}</div>
-      {downButton}
-      <div>Downvote Count: {voteCount.downVote}</div>
+      <div className="up-button">
+        <i className="fas fa-chevron-up fa-lg icon-up" onClick={handleUpVote}></i>
+        {voteCount.upVote}
+      </div>
+      <div>
+        <i className="fas fa-chevron-down fa-lg icon-down" onClick={handleDownVote}></i>
+        {voteCount.downVote}
+      </div>
     </div>
   )
 }

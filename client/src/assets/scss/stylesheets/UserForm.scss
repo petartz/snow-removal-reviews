@@ -1,0 +1,28 @@
+.form{
+  border: 2px solid $dark-blue;
+  border-radius: 0.5em;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: $light-beige;
+  padding: 2em;
+  h1{
+    font-family: 'Work Sans', sans-serif;
+    text-align: center;
+    font-size: 2em;
+  }
+  p{
+    font-size: 1.2em;
+  }
+  label{
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+}
+
+.form-message{
+  background: $light-blue;
+  padding: 50px;
+}
+
+.form-offset{
+  margin-top: 2em;
+}

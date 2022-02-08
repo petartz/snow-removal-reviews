@@ -86,7 +86,7 @@ const RegistrationForm = () => {
   }
 
   return (
-    <div className="grid-container">
+    <div className="grid-container form form-offset">
       <h1>Register</h1>
       <form onSubmit={onSubmit}>
         <div>
@@ -121,7 +121,7 @@ const RegistrationForm = () => {
           </label>
         </div>
         <div>
-          <input type="submit" className="button" value="Register" />
+          <input type="submit" className="submit-button" value="Register" />
         </div>
       </form>
     </div>
