@@ -18,6 +18,8 @@ const ShowService = (props) => {
     reviews: []
   })
   const [errors, setErrors] = useState([])
+  const [editErrors, setEditErrors] = useState([])
+  const [currentReview, setCurrentReview] = useState(null)
 
   const getServiceAndReviews = async () => {
     try {
@@ -35,6 +37,43 @@ const ShowService = (props) => {
   useEffect(() => {
     getServiceAndReviews()
   }, [])
+
+
+  const submitEditReview = async (editedReview) => {
+    try {
+      const response = await fetch(`/api/v1/services/${props.match.params.id}/reviews/${editedReview.id}/editReview`, {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type" : "application/json"
+        }),
+        body: JSON.stringify(editedReview)
+      })
+
+      if (!response.ok){
+        if(response.status === 422){
+          const body = await response.json()
+          const newErrors = translateServerErrors(body.errors)
+          setEditErrors(newErrors)
+        }
+        const errorMessage = `${response.status} (${response.statusText})`
+        const error = new Error(errorMessage)
+        throw(error)
+      }
+      const replacedReview = service.reviews.find(review => review.id === editedReview.id)
+      const replacedIndex = service.reviews.indexOf(replacedReview)
+      const allReviews = service.reviews.filter(review => review.id != editedReview.id)
+      allReviews.splice(replacedIndex, 0, editedReview)
+
+      setEditErrors([])
+      setService({ ...service, reviews: allReviews })
+      setCurrentReview(null)
+
+      return true
+    } catch(error) {
+      console.log('you messed up')
+    }
+
+  }
 
   const deleteYourReview = async (reviewId) => {
     try {
@@ -61,15 +100,20 @@ const ShowService = (props) => {
     }
   }
 
-
   const reviewsMap = service.reviews.map((review) => {
     return(
       <ReviewTile
         key = {review.id}
+        serviceId = {props.match.params.id}
         review={review}
         user={props.user}
         getServiceAndReviews={getServiceAndReviews}
         deleteYourReview={deleteYourReview}
+
+        currentReview = {currentReview}
+        setCurrentReview = {setCurrentReview}
+        submitEditReview = {submitEditReview}
+        errors = {editErrors}
       />
     )
   })
@@ -103,7 +147,10 @@ const ShowService = (props) => {
 
   let reviewFormMessage = <div className="centered"><Link to="/user-sessions/new" className="sign-in-link">Sign in to Add New Review</Link></div>
   if (props.user) {
-    reviewFormMessage = <AddReviewsForm postReview={postReview}/>
+    reviewFormMessage =
+      <AddReviewsForm
+        postReview={postReview}
+      />
   }
 
   return(

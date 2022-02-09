@@ -1,40 +1,43 @@
-import React, { useEffect, useState } from "react"
-import ReviewTile from "./ReviewTile"
+import React, { useState } from "react";
 
-const AddReviewsForm = (props) => {
-  const [newReview, setNewReview] = useState({
-    heading: "",
-    description: "",
-    rating: "",
+const EditForm = props => {
+  const [editedReview, setEditReview] = useState({
+    id: props.id,
+    heading: props.heading,
+    description: props.description,
+    rating: props.rating,
+    userId: props.userId
   })
 
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const success = await props.submitEditReview(editedReview)
+    // if(success){
+    //   clearForm()
+    // }
+  }
+
   const handleInputChange = event => {
-    setNewReview({
-      ...newReview,
+    setEditReview({
+      ...editedReview,
       [event.currentTarget.name]: event.currentTarget.value
     })
   }
 
-  const clearForm = () => {
-    setNewReview({
-      heading: "",
-      description: "",
-      rating: ""
-    })
-  }
+  // const clearForm = () => {
+  //   setEditReview({
+  //     heading: "",
+  //     description: "",
+  //     rating: ""
+  //   })
+  // }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    const success = await props.postReview(newReview)
-    if(success){
-      clearForm()
-    }
-  }
 
   return(
-    <div className="callout form">
-      <h1>Add New Review</h1>
+    <div className="callout reviews-form">
+      <h1>Edit your Review</h1>
       <form onSubmit={handleSubmit}>
+
         <label htmlFor="heading">
           Heading:
           <input
@@ -42,7 +45,7 @@ const AddReviewsForm = (props) => {
             id="heading"
             name="heading"
             onChange={handleInputChange}
-            value={newReview.heading}/>
+            value={editedReview.heading}/>
         </label>
 
         <label htmlFor="description">
@@ -52,7 +55,7 @@ const AddReviewsForm = (props) => {
             id="description"
             name="description"
             onChange={handleInputChange}
-            value={newReview.description}/>
+            value={editedReview.description} />
         </label>
 
         <label htmlFor="rating">
@@ -61,7 +64,7 @@ const AddReviewsForm = (props) => {
             id="rating"
             name="rating"
             onChange={handleInputChange}
-            value={newReview.rating}>
+            value={editedReview.rating}>
               <option value="">Please choose a score!</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -71,10 +74,10 @@ const AddReviewsForm = (props) => {
           </select>
         </label>
 
-        <input className="submit-button" type="submit"/>
+        <input type="submit"/>
       </form>
     </div>
   )
-}
 
-export default AddReviewsForm
+}
+export default EditForm
