@@ -32,10 +32,9 @@ const AddReviewsForm = (props) => {
   }
 
   return(
-    <div className="callout reviews-form">
-      
+    <div className="callout form">
+      <h1>Add New Review</h1>
       <form onSubmit={handleSubmit}>
-        <h1>Add New Review</h1>
         <label htmlFor="heading">
           Heading:
           <input
@@ -58,15 +57,21 @@ const AddReviewsForm = (props) => {
 
         <label htmlFor="rating">
           Rating:
-          <input
-            type="integer"
+          <select
             id="rating"
             name="rating"
             onChange={handleInputChange}
-            value={newReview.rating}/>
+            value={newReview.rating}>
+              <option value="">Please choose a score!</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+          </select>
         </label>
 
-        <input type="submit"/>
+        <input className="submit-button" type="submit"/>
       </form>
     </div>
   )

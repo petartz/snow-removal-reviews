@@ -4,8 +4,9 @@
 @import './stylesheets/Colors.scss';
 @import './stylesheets/ShowPage.scss';
 @import './stylesheets/ServicesIndex.scss';
-@import './stylesheets/AddServicesForm.scss';
-@import'./stylesheets/AddReviewsForm.scss';
+@import'./stylesheets/UserForm.scss';
+@import'./stylesheets/ReviewTile.scss';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;900&family=Work+Sans&display=swap');
 // place global css here
 *,
 *::before,
@@ -18,4 +19,22 @@
   tab-size: 4;
 }
 
+.sign-in-link{
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+  font-size: 2em;  
+}
 
+.submit-button{
+  border: none;
+  padding: .5em;
+  border-radius: 0.5em;
+  background-color: $darker-blue;
+  color: white;
+}
+
+.submit-button:hover{
+  cursor: pointer;
+  background-color: $dark-blue;
+}

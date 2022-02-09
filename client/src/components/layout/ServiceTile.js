@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import StarRating from "./StarRating"
 
 const ServiceTile = ({ service }) => {
   return (
@@ -12,6 +13,10 @@ const ServiceTile = ({ service }) => {
       <Link to={`/services/${service.id}`}>
         {service.name}
       </Link>
+      <StarRating 
+        rating={service.rating}
+        ratingLabel='Average Rating'
+      />
     </div>
   )
 }

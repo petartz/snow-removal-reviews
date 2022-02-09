@@ -1,6 +1,7 @@
 import React from 'react'
 import Vote from "./Vote.js"
 import EditForm from "./EditForm.js"
+import StarRating from './StarRating.js'
 
 const ReviewTile = (props) => {
   const {heading, description, rating, id, voteCount } = props.review
@@ -19,11 +20,7 @@ const ReviewTile = (props) => {
     if (props.user.id === props.review.userId) {
       deleteButtonElement =
         <div className="crud-buttons">
-          <button
-            className="button"
-            onClick={handleDeleteClick}>
-              Delete Review
-          </button>
+          <i className="far fa-times-circle fa-lg delete-icon" onClick={handleDeleteClick}/>
           <button
             className="button"
             onClick={handleEditClick}>
@@ -47,10 +44,10 @@ const ReviewTile = (props) => {
 
   return (
     <div className="reviews-tile">
-      <div className="inside-spacing">
+      <div>
         <h1>{heading}</h1>
-        <p>Description: {description}</p>
-        <p>Rating: {rating}</p>
+        <p>{description}</p>
+        <StarRating rating={rating} ratingLabel='Rating'/>
       </div>
       <Vote
         reviewId={id}
