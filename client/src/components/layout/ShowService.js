@@ -64,7 +64,6 @@ const ShowService = (props) => {
 
       setService({ ...service, reviews: allReviews })
 
-      debugger
       return true
     } catch(error) {
       console.log('you messed up')
