@@ -79,7 +79,7 @@ const ServicesIndex = (props) => {
       <div className="index-header">
         <h1>Snow Removal Services</h1>
       </div>
-      <form>
+      <form className="search-bar">
         <label for="search">Find a Service</label>
         <input 
           type="text" 
@@ -87,6 +87,7 @@ const ServicesIndex = (props) => {
           placeholder="Search.."
           value={searchText}
           onChange={onInputChange}
+          className="search-input"
           >
         </input>
       </form>
