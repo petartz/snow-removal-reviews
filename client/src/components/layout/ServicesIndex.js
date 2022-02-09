@@ -8,6 +8,7 @@ import ErrorList from "./ErrorList.js"
 const ServicesIndex = (props) => {
   const [services, setServices] = useState([])
   const [errors, setErrors] = useState([])
+  const [searchText, setSearchText] = useState('')
 
   const fetchServices = async () => {
     try {
@@ -55,7 +56,16 @@ const ServicesIndex = (props) => {
     }
   }
 
-  const servicesTiles = services.map((service) => {
+  const onInputChange = (event) => {
+    event.preventDefault()
+    setSearchText(event.currentTarget.value)
+  }
+
+  let searchedItems = services.filter((service) => {
+    return service.name.toLowerCase().includes(searchText)
+  })
+
+  const servicesTiles = searchedItems.map((service) => {
     return <ServiceTile key={service.id} service={service} />
   })
 
@@ -69,6 +79,18 @@ const ServicesIndex = (props) => {
       <div className="index-header">
         <h1>Snow Removal Services</h1>
       </div>
+      <form className="search-bar">
+        <label for="search">Find a Service</label>
+        <input 
+          type="text" 
+          name="search" 
+          placeholder="Search.."
+          value={searchText}
+          onChange={onInputChange}
+          className="search-input"
+          >
+        </input>
+      </form>
 
       <div className="grid-x grid-margin-x bottom-half">
         <div className="cell small-6">
