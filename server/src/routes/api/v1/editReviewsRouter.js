@@ -1,15 +1,21 @@
 import express from "express"
 import Review from "../../../models/Review.js"
+import { ValidationError } from "objection";
+import cleanEditReviewInput from "../../../../services/cleanEditReviewInput.js"
+
 const editReviewsRouter = new express.Router( {mergeParams:true} )
 
 editReviewsRouter.post("/", async (req, res) => {
-  const { id, heading, description, rating } = req.body
-  const reviewId = req.params.id
+  const cleanInput = cleanEditReviewInput(req.body)
+  const { id, heading, description, rating } = cleanInput
   try{
-    const editedReview = await Review.query().patch({ heading, description, rating }).findById(id)
+    const editedReview = await Review.query().update({ heading, description, rating }).findById(id)
     return res.status(201).json( {editedReview} )
   } catch(error) {
-    console.error(error.message)
+    if (error instanceof ValidationError){
+      return res.status(422).json( {errors: error.data} )
+    }
+    return res.status(500).json( {errors:error} )
   }
 })
 

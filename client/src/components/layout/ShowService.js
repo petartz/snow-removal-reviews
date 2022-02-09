@@ -18,6 +18,7 @@ const ShowService = (props) => {
     reviews: []
   })
   const [errors, setErrors] = useState([])
+  const [editErrors, setEditErrors] = useState([])
   const [currentReview, setCurrentReview] = useState(null)
 
   const getServiceAndReviews = async () => {
@@ -40,7 +41,7 @@ const ShowService = (props) => {
 
   const submitEditReview = async (editedReview) => {
     try {
-      const response = await fetch(`/api/v1/services/${props.match.params.id}/editReview`, {
+      const response = await fetch(`/api/v1/services/${props.match.params.id}/reviews/${editedReview.id}/editReview`, {
         method: "POST",
         headers: new Headers({
           "Content-Type" : "application/json"
@@ -51,7 +52,8 @@ const ShowService = (props) => {
       if (!response.ok){
         if(response.status === 422){
           const body = await response.json()
-          alert(body.message)
+          const newErrors = translateServerErrors(body.errors)
+          setEditErrors(newErrors)
         }
         const errorMessage = `${response.status} (${response.statusText})`
         const error = new Error(errorMessage)
@@ -59,11 +61,12 @@ const ShowService = (props) => {
       }
       const replacedReview = service.reviews.find(review => review.id === editedReview.id)
       const replacedIndex = service.reviews.indexOf(replacedReview)
-
       const allReviews = service.reviews.filter(review => review.id != editedReview.id)
       allReviews.splice(replacedIndex, 0, editedReview)
 
+      setEditErrors([])
       setService({ ...service, reviews: allReviews })
+      setCurrentReview(null)
 
       return true
     } catch(error) {
@@ -101,6 +104,7 @@ const ShowService = (props) => {
     return(
       <ReviewTile
         key = {review.id}
+        serviceId = {props.match.params.id}
         review={review}
         user={props.user}
         getServiceAndReviews={getServiceAndReviews}
@@ -109,6 +113,7 @@ const ShowService = (props) => {
         currentReview = {currentReview}
         setCurrentReview = {setCurrentReview}
         submitEditReview = {submitEditReview}
+        errors = {editErrors}
       />
     )
   })

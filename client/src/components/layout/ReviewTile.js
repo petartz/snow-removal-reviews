@@ -2,6 +2,7 @@ import React from 'react'
 import Vote from "./Vote.js"
 import EditForm from "./EditForm.js"
 import StarRating from './StarRating.js'
+import ErrorList from "./ErrorList.js"
 
 const ReviewTile = (props) => {
   const {heading, description, rating, id, voteCount } = props.review
@@ -37,13 +38,22 @@ const ReviewTile = (props) => {
               description = {description}
               rating = {rating}
               submitEditReview = {props.submitEditReview}
+              userId = {props.user.id}
             />
-          }
+        }
     }
   }
 
+  let errorList = null
+  if(props.currentReview === id){
+    errorList =  <ErrorList errors={props.errors}/>
+  }
+
+
+
   return (
     <div className="reviews-tile">
+      {errorList}
       <div>
         <h1>{heading}</h1>
         <p>{description}</p>
@@ -51,6 +61,7 @@ const ReviewTile = (props) => {
       </div>
       <Vote
         reviewId={id}
+        serviceId={props.serviceId}
         voteCount={voteCount}
         user={props.user}
       />

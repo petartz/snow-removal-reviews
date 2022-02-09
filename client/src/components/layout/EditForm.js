@@ -1,22 +1,20 @@
 import React, { useState } from "react";
 
-
-
 const EditForm = props => {
-
   const [editedReview, setEditReview] = useState({
     id: props.id,
     heading: props.heading,
     description: props.description,
     rating: props.rating,
+    userId: props.userId
   })
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     const success = await props.submitEditReview(editedReview)
-    if(success){
-      clearForm()
-    }
+    // if(success){
+    //   clearForm()
+    // }
   }
 
   const handleInputChange = event => {
@@ -26,13 +24,13 @@ const EditForm = props => {
     })
   }
 
-  const clearForm = () => {
-    setEditReview({
-      heading: "",
-      description: "",
-      rating: ""
-    })
-  }
+  // const clearForm = () => {
+  //   setEditReview({
+  //     heading: "",
+  //     description: "",
+  //     rating: ""
+  //   })
+  // }
 
 
   return(
@@ -62,12 +60,18 @@ const EditForm = props => {
 
         <label htmlFor="rating">
           Rating:
-          <input
-            type="integer"
+          <select
             id="rating"
             name="rating"
             onChange={handleInputChange}
-            value={editedReview.rating} />
+            value={editedReview.rating}>
+              <option value="">Please choose a score!</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+          </select>
         </label>
 
         <input type="submit"/>
