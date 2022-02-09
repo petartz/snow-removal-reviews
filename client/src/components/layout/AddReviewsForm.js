@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import ReviewTile from "./ReviewTile"
 
 const AddReviewsForm = (props) => {
   const [newReview, setNewReview] = useState({
@@ -7,14 +8,14 @@ const AddReviewsForm = (props) => {
     rating: "",
   })
 
-  const handleInputChange = event =>{
+  const handleInputChange = event => {
     setNewReview({
       ...newReview,
       [event.currentTarget.name]: event.currentTarget.value
     })
   }
 
-  const clearForm = () =>{
+  const clearForm = () => {
     setNewReview({
       heading: "",
       description: "",
@@ -22,7 +23,7 @@ const AddReviewsForm = (props) => {
     })
   }
 
-  const handleSubmit = async (event) =>{
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const success = await props.postReview(newReview)
     if(success){
@@ -33,8 +34,7 @@ const AddReviewsForm = (props) => {
   return(
     <div className="callout form">
       <h1>Add New Review</h1>
-      <form onSubmit={handleSubmit}>
-
+      <form onSubmit={handleSubmit}>ß
         <label htmlFor="heading">
           Heading:
           <input
