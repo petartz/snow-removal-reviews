@@ -4,9 +4,6 @@ import EditForm from "./EditForm.js"
 import StarRating from './StarRating.js'
 import ErrorList from "./ErrorList.js"
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons"
-
 const ReviewTile = (props) => {
   const {heading, description, rating, id, voteCount } = props.review
 
@@ -24,7 +21,7 @@ const ReviewTile = (props) => {
     if (props.user.id === props.review.userId) {
       deleteAndEditButton =
         <div className="crud-buttons">
-          <FontAwesomeIcon icon={faTimesCircle} className="delete-icon fa-lg" onClick ={handleDeleteClick}/>
+          <i className="far fa-times-circle fa-lg delete-icon" onClick={handleDeleteClick}/>
           <button
             className="submit-button edit-button"
             onClick={handleEditClick}>

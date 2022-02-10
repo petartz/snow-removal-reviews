@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom"
 import { withRouter } from 'react-router'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
-
 
 const Vote = props => {
 
@@ -57,12 +54,12 @@ const Vote = props => {
   return (
     <div className="votes">
       {signInMessage}
-      <div>
-        <FontAwesomeIcon icon={faChevronUp} onClick={handleUpVote} className="fa-lg icon-up" />
+      <div className="up-button">
+        <i className="fas fa-chevron-up fa-lg icon-up" onClick={handleUpVote}></i>
         {voteCount.upVote}
       </div>
       <div>
-        <FontAwesomeIcon icon={faChevronDown} onClick={handleDownVote} className="fa-lg icon-down"/>
+        <i className="fas fa-chevron-down fa-lg icon-down" onClick={handleDownVote}></i>
         {voteCount.downVote}
       </div>
     </div>
