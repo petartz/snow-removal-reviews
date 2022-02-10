@@ -9,7 +9,26 @@ const ServicesIndex = (props) => {
   const [services, setServices] = useState([])
   const [errors, setErrors] = useState([])
   const [searchText, setSearchText] = useState('')
-
+  const [forecast, setForecast] = useState({})
+  const successfulLookup = async position => {
+    const { latitude, longitude } = position.coords
+    console.log(latitude, longitude)
+    try{
+      const response = await fetch (`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=PUT API KEY HERE PLZ`)
+      const body = await response.json()
+      setForecast({
+        city: body.city.name,
+        temp: body.list[0].main.temp,
+        description: body.list[0].weather[0].description            
+      })
+      if(!response.ok){
+        throw new Error(`${response.status} ${response.statusText}`)
+      }
+    }catch(error){
+      console.log(error)
+    }
+  }
+  
   const fetchServices = async () => {
     try {
       const response = await fetch("/api/v1/services")
@@ -23,8 +42,16 @@ const ServicesIndex = (props) => {
     }
   }
 
+  const confirmLocationConsent = () => {
+    if (confirm(`Use your location to get current weather?`)){
+      window.navigator.geolocation.getCurrentPosition(successfulLookup, console.log)
+    }else{
+      alert('no weather for you')
+    }
+  }
   useEffect(() => {
     fetchServices()
+    confirmLocationConsent()
   }, [])
 
   const postService = async (newServiceData) => {
@@ -90,6 +117,9 @@ const ServicesIndex = (props) => {
           className="search-input"
           >
         </input>
+        <p>Weather for: {forecast.city}</p>
+        <p>Temp: {forecast.temp}</p>
+        <p>Weather: {forecast.description}</p>
       </form>
 
       <div className="grid-x grid-margin-x bottom-half">

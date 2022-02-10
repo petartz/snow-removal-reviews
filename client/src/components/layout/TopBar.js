@@ -3,32 +3,7 @@ import { Link } from "react-router-dom";
 import SignOutButton from "../authentication/SignOutButton";
 
 const TopBar = ({ user }) => {
-  // const [location, setLocation] = useState({
-  //   lat: 0,
-  //   long: 0
-  // })
-  // const [forecast, setForecast] = useState({
-  //   city: '',
-  //   temp: ''
-  // })
-  // const successfulLookup = async position => {
-  //   const { latitude, longitude } = position.coords
-  //   console.log(latitude, longitude)
-  //   // setLocation({lat: latitude, long: longitude})
-  //   try{
-  //     const response = await fetch (`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=f2f86640139e21f2e625867855478652`)
-  //     const body = await response.json()
-  //     // setForecast({city: body.city.name})
-  //     console.log(body.city.name)
-  //     debugger
-  //     if(!response.ok){
-  //       throw new Error(`${response.status} ${response.statusText}`)
-  //     }
-  //   }catch(error){
-  //     console.log(error)
-  //   }
-  // }
-  // window.navigator.geolocation.getCurrentPosition(successfulLookup, console.log)
+
 
   const unauthenticatedListItems = [
     <li key="sign-in">
@@ -55,7 +30,6 @@ const TopBar = ({ user }) => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          {/* <li>{location.latitude} {location.longitude}</li> */}
         </ul>
       </div>
       <div className="top-bar-right">
