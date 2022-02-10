@@ -44,7 +44,7 @@ class Review extends Model {
       required: ["rating", "heading"],
       properties: {
         heading: { type: "string", minLength: 1 },
-        description: { type: "string", maxLength: 250 },
+        description: { type: "text"},
         rating: { type: ["string", "integer"] }
       }
     }
