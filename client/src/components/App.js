@@ -44,10 +44,9 @@ const App = (props) => {
   }
 
   const confirmLocationConsent = () => {
-    if (confirm(`Use your location to get current weather?`)){
+    if (confirm(`May we use your location to get current weather?  Click cancel to default to Boston`)){
       window.navigator.geolocation.getCurrentPosition(successfulLookup, console.log)
     }else{
-      alert('no weather for you')
       locationConsent = false
       successfulLookup()
     }
