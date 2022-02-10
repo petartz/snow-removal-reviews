@@ -45,7 +45,6 @@ const RegistrationForm = () => {
         };
       }
     }
-
     setErrors(newErrors);
   };
 
