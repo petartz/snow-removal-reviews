@@ -16,13 +16,15 @@ const RegistrationForm = () => {
   const validateInput = (payload) => {
     setErrors({});
     const { email, password, passwordConfirmation } = payload;
-    const emailRegexp = config.validation.email.regexp;
+    const emailRegexp = config.validation.email.regexp.emailRegex;
     let newErrors = {};
+ 
     if (!email.match(emailRegexp)) {
       newErrors = {
         ...newErrors,
         email: "is invalid",
       };
+    
     }
 
     if (password.trim() == "") {
@@ -45,15 +47,17 @@ const RegistrationForm = () => {
         };
       }
     }
-
     setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0){
+      return true
+    }
+    return false
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    validateInput(userPayload);
-    try {
-      if (Object.keys(errors).length === 0) {
+    if (validateInput(userPayload)){
+      try {
         const response = await fetch("/api/v1/users", {
           method: "post",
           body: JSON.stringify(userPayload),
@@ -68,9 +72,9 @@ const RegistrationForm = () => {
         }
         const userData = await response.json();
         setShouldRedirect(true);
+      } catch (err) {
+        console.error(`Error in fetch: ${err.message}`);
       }
-    } catch (err) {
-      console.error(`Error in fetch: ${err.message}`);
     }
   };
 

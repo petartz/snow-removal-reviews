@@ -7,6 +7,7 @@ const AddServicesForm = (props) => {
     email: "",
     websiteUrl: "",
     photoUrl: "",
+    description: ""
   })
 
   const handleInputChange = (event) => {
@@ -19,7 +20,8 @@ const AddServicesForm = (props) => {
       number: "",
       email: "",
       websiteUrl: "",
-      photoUrl: ""
+      photoUrl: "",
+      description: ""
     })
   }
 
@@ -43,6 +45,16 @@ const AddServicesForm = (props) => {
             name="name" 
             onChange={handleInputChange}
             value={newService.name}
+          />
+        </label>
+        <label htmlFor="description">
+          Description:
+          <input 
+            type="text" 
+            id="description" 
+            name="description" 
+            onChange={handleInputChange}
+            value={newService.description}
           />
         </label>
         <label htmlFor="number">

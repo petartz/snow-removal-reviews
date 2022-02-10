@@ -20,6 +20,13 @@ body{
   font-weight: 900;
 }
 
+.service-description {
+  border: 1px solid $light-beige; 
+  border-radius: 1em;
+  padding: .75em;
+  line-height: 1.2em;
+}
+
 .image-stars{
   display: flex;
   flex-direction: column;

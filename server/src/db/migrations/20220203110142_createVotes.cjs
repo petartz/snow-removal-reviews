@@ -33,3 +33,5 @@ exports.up = async (knex) => {
 exports.down = async (knex) => {
   return knex.schema.dropTableIfExists("votes")
 }
+
+

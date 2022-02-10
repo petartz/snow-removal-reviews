@@ -5,11 +5,11 @@ import { withRouter } from 'react-router'
 const Vote = props => {
 
   const reviewId = props.reviewId
-  const [voteCount, setVoteCount] = useState(props.voteCount || { upVote: 0, downVote: 0 }) 
+  const [voteCount, setVoteCount] = useState(props.voteCount || { upVote: 0, downVote: 0 })
 
   const addVote = async (voteValue) => {
     try {
-      const response = await fetch(`/api/v1/reviews/${reviewId}/votes`, {
+      const response = await fetch(`/api/v1/services/${props.serviceId}/reviews/${reviewId}/votes`, {
         method: "POST",
         headers: new Headers({
           "Content-Type": "application/json"
@@ -34,7 +34,7 @@ const Vote = props => {
 
   const upClickHandler = async () => {
     await addVote(1)
-    
+
   }
 
   const downClickHandler = async () => {

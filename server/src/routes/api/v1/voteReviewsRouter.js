@@ -1,9 +1,10 @@
 import express from 'express'
 import { Vote } from '../../../models/index.js'
 import VoteSerializer from '../../../../serializers/VoteSerializer.js'
-const reviewsRouter = new express.Router()
 
-reviewsRouter.post('/:reviewId/votes', async (req, res) => {
+const voteReviewsRouter = new express.Router({ mergeParams:true })
+
+voteReviewsRouter.post('/', async (req, res) => {
   try {
     const { voteValue } = req.body
     const { reviewId } = req.params
@@ -30,4 +31,4 @@ reviewsRouter.post('/:reviewId/votes', async (req, res) => {
   }
 })
 
-export default reviewsRouter
+export default voteReviewsRouter

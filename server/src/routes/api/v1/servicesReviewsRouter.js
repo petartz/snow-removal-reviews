@@ -2,8 +2,13 @@ import express from "express";
 import { Review } from "../../../models/index.js";
 import cleanUserInput from "../../../../services/cleanUserInput.js";
 import { ValidationError } from "objection";
+import editReviewsRouter from "./editReviewsRouter.js"
+import voteReviewsRouter from "./voteReviewsRouter.js"
 
 const servicesReviewsRouter = new express.Router({ mergeParams:true })
+
+servicesReviewsRouter.use("/:reviewId/editReview", editReviewsRouter)
+servicesReviewsRouter.use("/:reviewId/votes", voteReviewsRouter)
 
 servicesReviewsRouter.post("/", async (req,res) =>{
   const id = req.params.id

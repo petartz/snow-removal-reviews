@@ -6,7 +6,6 @@ import API_KEY from '../../config.js'
 const weatherRouter = new express.Router()
 
 weatherRouter.get('/:lat&:long', async (req, res) => {
-  console.log(API_KEY)
   try {
     const response = await got(`https://api.openweathermap.org/data/2.5/forecast?lat=${req.params.lat}&lon=${req.params.long}&appid=${API_KEY.API_KEY}`)
     const body = JSON.parse(response.body)
