@@ -80,7 +80,7 @@ const ServicesIndex = (props) => {
         <h1>Snow Removal Services</h1>
       </div>
       <form className="search-bar">
-        <label for="search">Find a Service</label>
+        <label htmlFor="search">Find a Service</label>
         <input 
           type="text" 
           name="search" 

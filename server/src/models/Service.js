@@ -44,7 +44,8 @@ class Service extends Model {
                 number:{type:"string"},
                 email:{type:"string"},
                 websiteUrl: {type:"string"},
-                photoUrl: {type:"string"}
+                photoUrl: {type:"string"},
+                description: {type:"text"}
             }
         }
     }

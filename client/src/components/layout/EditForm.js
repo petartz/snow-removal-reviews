@@ -12,9 +12,6 @@ const EditForm = props => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     const success = await props.submitEditReview(editedReview)
-    // if(success){
-    //   clearForm()
-    // }
   }
 
   const handleInputChange = event => {
@@ -24,17 +21,8 @@ const EditForm = props => {
     })
   }
 
-  // const clearForm = () => {
-  //   setEditReview({
-  //     heading: "",
-  //     description: "",
-  //     rating: ""
-  //   })
-  // }
-
-
   return(
-    <div className="callout reviews-form">
+    <div className="callout form">
       <h1>Edit your Review</h1>
       <form onSubmit={handleSubmit}>
 
@@ -74,7 +62,7 @@ const EditForm = props => {
           </select>
         </label>
 
-        <input type="submit"/>
+        <input type="submit" className="submit-button"/>
       </form>
     </div>
   )

@@ -27,7 +27,7 @@
 }
 
 .reviews-tile {
-  border: 2px solid $dark-blue;
+  border: 2px solid $beige;
   border-radius: 0.5em;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 2em;
@@ -36,6 +36,7 @@
   background-color: #fefaf9;
   h1 {
     font-size: 2em;
+    font-family: 'Work Sans', sans-serif;
   }
   p {
     font-size: 1.2em;
@@ -52,4 +53,8 @@
 .delete-icon:hover {
   cursor: pointer;
   color: red;
+}
+
+.edit-button {
+  margin: 1em 0;
 }

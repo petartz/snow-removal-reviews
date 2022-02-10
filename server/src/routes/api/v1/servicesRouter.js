@@ -35,7 +35,8 @@ serviceRouter.post("/", async (req, res) => {
   const formInput = cleanUserInput(req.body)
   try {
     const newService = await Service.query().insertAndFetch(formInput);
-    return res.status(201).json({ service: newService });
+    const newServiceWithRating = {...newService, rating: 0}
+    return res.status(201).json({ service: newServiceWithRating });
   } catch (error) {
     if (error instanceof ValidationError) {
       return res.status(422).json({ errors: error.data })
