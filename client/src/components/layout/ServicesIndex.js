@@ -4,34 +4,11 @@ import ServiceTile from "./ServiceTile.js"
 import AddServicesForm from "./AddServicesForm.js"
 import translateServerErrors from "../../services/translateServerErrors.js"
 import ErrorList from "./ErrorList.js"
-import kelvinConverter from "../../services/KelvinConverter.js"
 
 const ServicesIndex = (props) => {
   const [services, setServices] = useState([])
   const [errors, setErrors] = useState([])
   const [searchText, setSearchText] = useState('')
-  
-
-
-  // const successfulLookup = async position => {
-  //   const { latitude, longitude } = position.coords
-  //   console.log(latitude, longitude)
-  //   try{
-  //     const response = await fetch (`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=d8e8742fa1b1aa5b85716c6144013e98`)
-  //     const body = await response.json()
-  //     let temp = kelvinConverter(body.list[0].main.temp)
-  //     setForecast({
-  //       city: body.city.name,
-  //       temp: temp,
-  //       description: body.list[0].weather[0].description            
-  //     })
-  //     if(!response.ok){
-  //       throw new Error(`${response.status} ${response.statusText}`)
-  //     }
-  //   }catch(error){
-  //     console.log(error)
-  //   }
-  // }
   
   const fetchServices = async () => {
     try {
