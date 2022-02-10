@@ -10,26 +10,28 @@ const ServicesIndex = (props) => {
   const [services, setServices] = useState([])
   const [errors, setErrors] = useState([])
   const [searchText, setSearchText] = useState('')
-  const [forecast, setForecast] = useState({})
-  const successfulLookup = async position => {
-    const { latitude, longitude } = position.coords
-    console.log(latitude, longitude)
-    try{
-      const response = await fetch (`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=d8e8742fa1b1aa5b85716c6144013e98`)
-      const body = await response.json()
-      let temp = kelvinConverter(body.list[0].main.temp)
-      setForecast({
-        city: body.city.name,
-        temp: temp,
-        description: body.list[0].weather[0].description            
-      })
-      if(!response.ok){
-        throw new Error(`${response.status} ${response.statusText}`)
-      }
-    }catch(error){
-      console.log(error)
-    }
-  }
+  
+
+
+  // const successfulLookup = async position => {
+  //   const { latitude, longitude } = position.coords
+  //   console.log(latitude, longitude)
+  //   try{
+  //     const response = await fetch (`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=d8e8742fa1b1aa5b85716c6144013e98`)
+  //     const body = await response.json()
+  //     let temp = kelvinConverter(body.list[0].main.temp)
+  //     setForecast({
+  //       city: body.city.name,
+  //       temp: temp,
+  //       description: body.list[0].weather[0].description            
+  //     })
+  //     if(!response.ok){
+  //       throw new Error(`${response.status} ${response.statusText}`)
+  //     }
+  //   }catch(error){
+  //     console.log(error)
+  //   }
+  // }
   
   const fetchServices = async () => {
     try {
@@ -44,16 +46,8 @@ const ServicesIndex = (props) => {
     }
   }
 
-  const confirmLocationConsent = () => {
-    if (confirm(`Use your location to get current weather?`)){
-      window.navigator.geolocation.getCurrentPosition(successfulLookup, console.log)
-    }else{
-      alert('no weather for you')
-    }
-  }
   useEffect(() => {
     fetchServices()
-    confirmLocationConsent()
   }, [])
 
   const postService = async (newServiceData) => {
@@ -108,21 +102,25 @@ const ServicesIndex = (props) => {
       <div className="index-header">
         <h1>Snow Removal Services</h1>
       </div>
-      <form className="search-bar">
-        <label for="search">Find a Service
-          <input 
-            type="text" 
-            name="search" 
-            placeholder="Search.."
-            value={searchText}
-            onChange={onInputChange}
-            className="search-input"
+      <form className="search-weather">
+        <div className="search-bar">
+          <label htmlFor="search">Find a Service
+            <input 
+              type="text" 
+              name="search" 
+              placeholder="Search.."
+              value={searchText}
+              onChange={onInputChange}
+              className="search-input"
             >
-          </input>
-        </label>
-        <p>Weather for: {forecast.city}</p>
-        <p>Temp: {forecast.temp}</p>
-        <p>Weather: {forecast.description}</p>
+            </input>
+          </label>
+        </div>
+        <div className="weather">
+          <p className="weather-item"><strong>City: </strong>{props.forecast.city}</p>
+          <p className="weather-item"><strong>Temp: </strong>{props.forecast.temp}°F</p>
+          <p className="weather-item"><strong>Conditions: </strong>{props.forecast.description}</p>
+        </div>
       </form>
 
       <div className="grid-x grid-margin-x bottom-half">
