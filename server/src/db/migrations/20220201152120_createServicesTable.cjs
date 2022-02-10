@@ -13,7 +13,7 @@ exports.up = async (knex) => {
         table.string("email")
         table.string("websiteUrl")
         table.string("photoUrl")
-        table.text("description")
+        table.text("description").notNullable()
         table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())
         table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now())
     })
