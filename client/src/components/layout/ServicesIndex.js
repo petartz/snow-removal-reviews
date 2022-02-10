@@ -4,6 +4,7 @@ import ServiceTile from "./ServiceTile.js"
 import AddServicesForm from "./AddServicesForm.js"
 import translateServerErrors from "../../services/translateServerErrors.js"
 import ErrorList from "./ErrorList.js"
+import kelvinConverter from "../../services/KelvinConverter.js"
 
 const ServicesIndex = (props) => {
   const [services, setServices] = useState([])
@@ -14,11 +15,12 @@ const ServicesIndex = (props) => {
     const { latitude, longitude } = position.coords
     console.log(latitude, longitude)
     try{
-      const response = await fetch (`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=PUT API KEY HERE PLZ`)
+      const response = await fetch (`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=d8e8742fa1b1aa5b85716c6144013e98`)
       const body = await response.json()
+      let temp = kelvinConverter(body.list[0].main.temp)
       setForecast({
         city: body.city.name,
-        temp: body.list[0].main.temp,
+        temp: temp,
         description: body.list[0].weather[0].description            
       })
       if(!response.ok){
@@ -107,16 +109,17 @@ const ServicesIndex = (props) => {
         <h1>Snow Removal Services</h1>
       </div>
       <form className="search-bar">
-        <label for="search">Find a Service</label>
-        <input 
-          type="text" 
-          name="search" 
-          placeholder="Search.."
-          value={searchText}
-          onChange={onInputChange}
-          className="search-input"
-          >
-        </input>
+        <label for="search">Find a Service
+          <input 
+            type="text" 
+            name="search" 
+            placeholder="Search.."
+            value={searchText}
+            onChange={onInputChange}
+            className="search-input"
+            >
+          </input>
+        </label>
         <p>Weather for: {forecast.city}</p>
         <p>Temp: {forecast.temp}</p>
         <p>Weather: {forecast.description}</p>
