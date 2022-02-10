@@ -9,7 +9,7 @@ const ServicesIndex = (props) => {
   const [services, setServices] = useState([])
   const [errors, setErrors] = useState([])
   const [searchText, setSearchText] = useState('')
-
+  
   const fetchServices = async () => {
     try {
       const response = await fetch("/api/v1/services")
@@ -79,17 +79,25 @@ const ServicesIndex = (props) => {
       <div className="index-header">
         <h1>Snow Removal Services</h1>
       </div>
-      <form className="search-bar">
-        <label htmlFor="search">Find a Service</label>
-        <input 
-          type="text" 
-          name="search" 
-          placeholder="Search.."
-          value={searchText}
-          onChange={onInputChange}
-          className="search-input"
-          >
-        </input>
+      <form className="search-weather">
+        <div className="search-bar">
+          <label htmlFor="search">Find a Service
+            <input 
+              type="text" 
+              name="search" 
+              placeholder="Search.."
+              value={searchText}
+              onChange={onInputChange}
+              className="search-input"
+            >
+            </input>
+          </label>
+        </div>
+        <div className="weather">
+          <p className="weather-item"><strong>City: </strong>{props.forecast.city}</p>
+          <p className="weather-item"><strong>Temp: </strong>{props.forecast.temp}°F</p>
+          <p className="weather-item"><strong>Conditions: </strong>{props.forecast.description}</p>
+        </div>
       </form>
 
       <div className="grid-x grid-margin-x bottom-half">

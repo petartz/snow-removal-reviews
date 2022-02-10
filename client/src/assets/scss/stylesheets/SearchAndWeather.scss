@@ -1,0 +1,22 @@
+.search-weather{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  row-gap: 3em;
+  margin: 0 1.2em;
+}
+
+.weather {
+  display: flex;
+}
+
+.weather-item {
+  margin: 0 auto;
+  padding: 0 1.3em;
+  font-size: 1.2em;
+}
+
+.search-bar {
+  max-width: 35%;
+  min-width: 30%;
+}
