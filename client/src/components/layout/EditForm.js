@@ -62,7 +62,7 @@ const EditForm = props => {
           </select>
         </label>
 
-        <input type="submit"/>
+        <input type="submit" className="submit-button"/>
       </form>
     </div>
   )

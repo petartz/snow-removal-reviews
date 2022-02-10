@@ -18,7 +18,7 @@ class ServiceSerializer{
   }
 
   static async getDetails(service){
-    const allowedAttributes = ["id", "name", "number", "email", "websiteUrl", "photoUrl"]
+    const allowedAttributes = ["id", "name", "number", "email", "websiteUrl", "photoUrl", "description"]
     let ratingSum = 0;
     let serializedService = {}
     for(const attribute of allowedAttributes){

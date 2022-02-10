@@ -16,18 +16,18 @@ const ReviewTile = (props) => {
   }
 
   let showEditForm = null
-  let deleteButtonElement = null
+  let deleteAndEditButton = null
   if (props.user) {
     if (props.user.id === props.review.userId) {
-      deleteButtonElement =
+      deleteAndEditButton =
         <div className="crud-buttons">
           <i className="far fa-times-circle fa-lg delete-icon" onClick={handleDeleteClick}/>
           <button
-            className="button"
+            className="submit-button edit-button"
             onClick={handleEditClick}>
               Edit Review
           </button>
-          </div>
+        </div>
 
         if((props.currentReview === id)){
           showEditForm =
@@ -65,7 +65,7 @@ const ReviewTile = (props) => {
         voteCount={voteCount}
         user={props.user}
       />
-      {deleteButtonElement}
+      {deleteAndEditButton}
       {showEditForm}
     </div>
   )

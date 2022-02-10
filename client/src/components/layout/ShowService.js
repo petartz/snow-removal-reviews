@@ -15,6 +15,7 @@ const ShowService = (props) => {
     websiteUrl: '',
     photoUrl: '',
     rating: '',
+    description: '',
     reviews: []
   })
   const [errors, setErrors] = useState([])
@@ -37,7 +38,6 @@ const ShowService = (props) => {
   useEffect(() => {
     getServiceAndReviews()
   }, [])
-
 
   const submitEditReview = async (editedReview) => {
     try {
@@ -165,8 +165,9 @@ const ShowService = (props) => {
         </div>
         <div className="service-info">
           <h1 className="service-name">{service.name}</h1>
-          <p>Phone number: {service.number}</p>
-          <p>{service.email}</p>
+          <p className="service-description">{service.description}</p>
+          <p className="bold">Phone number: {service.number}</p>
+          <p className="bold">{service.email}</p>
           <a href={service.websiteUrl} target="_blank">Website</a>
         </div>
       </div>
