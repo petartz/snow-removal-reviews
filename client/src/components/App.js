@@ -23,6 +23,9 @@ const App = (props) => {
   
   const [forecast, setForecast] = useState({})
   let locationConsent = true
+  const getYourLocation = () => {
+    window.navigator.geolocation.getCurrentPosition(successfulLookup, console.log)
+  }
   const successfulLookup = async position => {
     let latitude = 42.364758
     let longitude = -71.067421
@@ -36,25 +39,17 @@ const App = (props) => {
         setForecast({
           city: body.city,
           temp: body.temp,
-          description: body.description
+          description: body.description,
+          icon: body.icon
         })
       } catch(error) {
         console.error(error)
       }
   }
 
-  const confirmLocationConsent = () => {
-    if (confirm(`May we use your location to get current weather?  Click cancel to default to Boston`)){
-      window.navigator.geolocation.getCurrentPosition(successfulLookup, console.log)
-    }else{
-      locationConsent = false
-      successfulLookup()
-    }
-  }
-
   useEffect(() => {
     fetchCurrentUser()
-    confirmLocationConsent()
+    getYourLocation()
   }, [])
 
   return (

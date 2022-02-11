@@ -81,11 +81,11 @@ const ServicesIndex = (props) => {
       </div>
       <form className="search-weather">
         <div className="search-bar">
-          <label htmlFor="search">Find a Service
+          <label htmlFor="search">
             <input 
               type="text" 
               name="search" 
-              placeholder="Search.."
+              placeholder="Find a service ..."
               value={searchText}
               onChange={onInputChange}
               className="search-input"
@@ -97,6 +97,7 @@ const ServicesIndex = (props) => {
           <p className="weather-item"><strong>City: </strong>{props.forecast.city}</p>
           <p className="weather-item"><strong>Temp: </strong>{props.forecast.temp}°F</p>
           <p className="weather-item"><strong>Conditions: </strong>{props.forecast.description}</p>
+          <img className="weather-icon" src={`http://openweathermap.org/img/w/${props.forecast.icon}.png`} />
         </div>
       </form>
 

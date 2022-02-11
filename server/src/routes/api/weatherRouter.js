@@ -11,8 +11,9 @@ weatherRouter.get('/:lat&:long', async (req, res) => {
     const body = JSON.parse(response.body)
     const city = body.city.name
     const description = body.list[0].weather[0].description
+    const icon = body.list[0].weather[0].icon
     const temp = kelvinConverter(parseInt(body.list[0].main.temp))
-    return res.status(200).json({ city, description, temp })
+    return res.status(200).json({ city, description, temp, icon })
   } catch(error) {
     return res.status(500).json({ errors: error })
   }
