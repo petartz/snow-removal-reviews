@@ -43,4 +43,24 @@ body {
 
 .search-input{
   border-radius: 0.5em;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  font-size: 1.8em;
+  height: 1.6em;
+  margin-top: 0.5em;
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $medium-blue-translucent;
+  border-radius: 1em;
+  color: $darker-blue;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  font-size: 1em;
+}
+
+.weather-icon {
+  margin-top: 0.4em;
+  margin-right: 0.4em;
 }
