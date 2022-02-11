@@ -38,7 +38,7 @@ class Service extends Model {
     static get jsonSchema(){
         return{
             type: "object",
-            required: ["name"],
+            required: ["name", "description"],
             properties:{
                 name:{type:"string", minLength:1, maxLength:50},
                 number:{type:"string"},
